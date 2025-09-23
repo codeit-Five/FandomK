@@ -1,0 +1,2 @@
+# FandomK
+first basick project
