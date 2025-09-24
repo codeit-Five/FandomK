@@ -1,0 +1,18 @@
+:root {
+  /* black */
+  --color-black-900: #02000E;
+  --color-black-800: #181D26;
+
+  /* gray */
+  --color-gray-600: #67666E;
+  --color-gray-500: #828282;
+  --color-gray-400: #A3A5A8;
+  
+  /* white */
+  --color-white-100: #8C92AB;
+  --color-white: #F7F7F8;
+  
+  /* brand */
+  --color-brand-coral: #F96D69; 
+  --color-brand-pink: #FE5493;
+}
