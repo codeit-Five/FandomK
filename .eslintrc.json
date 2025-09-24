@@ -1,0 +1,36 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "ignorePatterns": ["vite.config.js", "dist/", "node_modules/", "*.config.js"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": ["error"],
+    "react/react-in-jsx-scope": "off",
+    "import/extensions": "off",
+    "import/no-absolute-path": "off",
+    "import/no-unresolved": "off",
+    "react/button-has-type": "off",
+    "no-shadow": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "vite.config.js",
+          "vite.config.ts",
+          "**/*.config.js",
+          "**/*.config.ts"
+        ]
+      }
+    ]
+  }
+}
