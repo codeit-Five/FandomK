@@ -1,0 +1,89 @@
+@use 'variables' as *; // _variables.scss
+
+/* font_family */
+@font-face {
+  font-family: 'PretendardB';
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Pretendard Bold'),
+    url(fonts/woff2/Pretendard-Bold.woff2) format('woff2'),
+    url(fonts/woff/Pretendard-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: 'PretendardSB';
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Pretendard SemiBold'),
+    url(fonts/woff2/Pretendard-SemiBold.woff2) format('woff2'),
+    url(fonts/woff/Pretendard-SemiBold.woff) format('woff');
+}
+@font-face {
+  font-family: 'PretendardM';
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Pretendard Medium'),
+    url(fonts/woff2/Pretendard-Medium.woff2) format('woff2'),
+    url(fonts/woff/Pretendard-Medium.woff) format('woff');
+}
+@font-face {
+  font-family: 'PretendardR';
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Pretendard Regular'),
+    url(fonts/woff2/Pretendard-Regular.woff2) format('woff2'),
+    url(fonts/woff/Pretendard-Regular.woff) format('woff');
+}
+
+/* 텍스트 클래스 - size, font-family */
+.txtStyleBG {
+  @include txt_style(26px, B);
+  display: inline-block;
+  color: $white;
+  background: $gra;
+}
+.txtStyle1 {
+  @include txt_style(26px, B);
+}
+.txtStyle2 {
+  @include txt_style(20px, B);
+}
+.txtStyle3 {
+  @include txt_style(20px, B);
+}
+.txtStyle4 {
+  @include txt_style(18px, SB);
+}
+.txtStyle5 {
+  @include txt_style(18px, M);
+}
+.txtStyle6 {
+  @include txt_style(16px, B);
+}
+.txtStyle7 {
+  @include txt_style(16px, M);
+}
+.txtStyle8 {
+  @include txt_style(16px, R);
+}
+.txtStyle9 {
+  @include txt_style(15px, B);
+}
+.txtStyle10 {
+  @include txt_style(14px, B);
+}
+.txtStyle11 {
+  @include txt_style(14px, R);
+}
+.txtStyle12 {
+  @include txt_style(13px, M);
+}
+.txtStyle13 {
+  @include txt_style(13px, B);
+}
+.txtStyle14 {
+  @include txt_style(12px, M);
+}
