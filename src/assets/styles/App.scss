@@ -1,0 +1,9 @@
+@use 'variables' as *; // _variables.scss
+@use 'font'; // _font.scss
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'PretendardM', sans-serif;
+  box-sizing: border-box;
+}
