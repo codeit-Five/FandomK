@@ -1,0 +1,33 @@
+/* color */
+$black1: #02000e;
+$black2: #181d26;
+$gray1: #67666e;
+$gray2: #828282;
+$gray3: #8c92ab;
+$gray4: #a3a5a8;
+$white1: #f7f7f8;
+$white: #fff;
+$coral: #f96d69;
+$pink: #fe5493;
+$gra: linear-gradient(90deg, #f86f65 0%, #fe5493 100%);
+
+/* font */
+$PretendardB: 'PretendardB', sans-serif;
+$PretendardSB: 'PretendardSB', sans-serif;
+$PretendardM: 'PretendardM', sans-serif;
+$PretendardR: 'PretendardR', sans-serif;
+
+/* 텍스트 클래스 - size, font-family */
+@mixin txt_style($size, $family) {
+  font-size: $size;
+
+  @if $family == B {
+    font-family: $PretendardB;
+  } @else if $family == SB {
+    font-family: $PretendardSB;
+  } @else if $family == M {
+    font-family: $PretendardM;
+  } @else if $family == R {
+    font-family: $PretendardR;
+  }
+}
