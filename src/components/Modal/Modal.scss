@@ -1,0 +1,192 @@
+@use '../../assets/styles/variables' as *;
+
+.modal {
+  /* 모달 컨테이너 (Full Screen Overlay) */
+  &Container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  /* 모달 박스 기본 스타일 */
+  &Box {
+    /* 공통 베이스 스타일 */
+    &Base {
+      display: flex;
+      flex-direction: column;
+      background-color: $black2;
+      border-radius: 12px;
+    }
+
+    &BaseShadow {
+      @extend .modalBoxBase;
+      gap: 24px;
+      align-items: flex-start;
+      flex-shrink: 0;
+      padding: 24px 16px 32px;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+    }
+
+    /* 개별 모달 박스 스타일 */
+
+    /* 크레딧 충전하기 */
+    &CreditRecharge {
+      @extend .modalBoxBaseShadow;
+      width: 327px;
+      height: 372px;
+    }
+
+    /* 후원하기 */
+    &Donation {
+      @extend .modalBoxBaseShadow;
+      width: 327px;
+      height: 509px;
+    }
+
+    /* 차트 투표 */
+    &Chart {
+      @extend .modalBoxBase;
+      width: 525px;
+      height: 693px;
+      padding: 24px 24px 12px;
+    }
+
+    /* 크레딧 부족 */
+    &InsufficientCredit {
+      @extend .modalBoxBase;
+      width: 339px;
+      height: 331px;
+      padding: 24px 20px 32px 24px;
+
+      .modalHeader {
+        justify-content: flex-end;
+      }
+
+      .modalContentBox {
+        gap: 31px;
+        margin-top: 8px;
+        margin-bottom: 31px;
+      }
+    }
+  }
+
+  // 헤더 (제목과 닫기 버튼을 포함)
+  &Header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // 제목
+  &Title {
+    color: $white1;
+  }
+
+  // 닫기 버튼
+  &CloseBtn {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    background: none;
+    border: none;
+    outline: none;
+
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // 내용 영역 (나머지 공간을 차지하도록 설정)
+  &ContentBox {
+    flex-grow: 1;
+  }
+
+  // 하단 버튼
+  &BottomBtn {
+    display: flex;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    padding: 8px 0;
+    box-shadow: none;
+    background: $gra;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+  }
+
+  // 하단 버튼 disabled 상태 스타일
+  &BottomBtn:disabled {
+    background: $gray2;
+  }
+
+  // 하단 버튼 아래 내용
+  &BottomContent {
+    margin: 12px auto 0;
+    color: #ffffff;
+
+    span {
+      color: $coral;
+    }
+  }
+
+  // 트리거 버튼
+  &TriggerBtn {
+    &Base {
+      box-shadow: none;
+      border: none;
+      outline: none;
+    }
+
+    &BaseBtn {
+      @extend .modalTriggerBtnBase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 16px 3px;
+      background: $gra;
+      color: #FFF;
+      border-radius: 3px;
+    }
+
+     /* 크레딧 충전하기 */
+    &CreditRecharge {
+      @extend .modalTriggerBtnBase;
+      color: $coral;
+    }
+
+    /* 후원하기 */
+    &Donation {
+      @extend .modalTriggerBtnBaseBtn;
+      width: 234px;
+      height: 40px;
+    }
+
+    /* 차트 투표 */
+    &Chart {
+      @extend .modalTriggerBtnBaseBtn;
+      height: 32px;
+      gap: 4px;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
