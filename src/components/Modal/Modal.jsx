@@ -7,9 +7,8 @@ export default function Modal({
   modalClassName,
   title,
   bottomBtn,
-  bottomBtnContent,
-  bottomBtnDisabled,
-  bottomContent,
+  isBottomBtnDisabled,
+  isHasBottomContent,
   triggerBtn,
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,15 +44,15 @@ export default function Modal({
             <div className="modalContentBox">{children}</div>
 
             {/* 하단 버튼 */}
-            {bottomBtn && (
-              <button
-                className="txtStyle11 modalBottomBtn"
-                disabled={bottomBtnDisabled}
-              >
-                {bottomBtnContent}
-              </button>
-            )}
-            {bottomContent && (
+            <button
+              className="txtStyle11 modalBottomBtn"
+              disabled={isBottomBtnDisabled}
+            >
+              {bottomBtn}
+            </button>
+
+            {/* 하단 버튼 아래 표시 */}
+            {isHasBottomContent && (
               <div className="txtStyle14 modalBottomContent">
                 투표하는 데 <span>1000 크레딧</span>이 소모됩니다.
               </div>
