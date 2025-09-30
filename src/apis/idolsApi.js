@@ -1,9 +1,9 @@
 import api from './baseApi';
 
 // 아이돌 조회
-export async function getIdols(pageSize) {
+export async function getIdols(cursor = null, pageSize = 10, keyword = null) {
   const res = await api.get('/idols', {
-    params: { pageSize },
+    params: { cursor, pageSize, keyword },
   });
   return res.data;
 }
