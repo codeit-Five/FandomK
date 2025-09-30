@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import axios, { apiCall } from './baseApi';
 
-// 생성
+// 이미지 생성
 export async function postImage(file) {
   const formData = new FormData();
   formData.append('image', file);

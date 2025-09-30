@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const api = axios.create({
-  baseURL: 'https://fandom-k-api.vercel.app/19-5',
+  baseURL: import.meta.env.VITE_API_URL,
   timeout: 3000,
 });
 
@@ -39,7 +39,7 @@ api.interceptors.response.use(
       errorMessage = '서버로부터 응답이 없습니다.';
     }
 
-    // 에러 알럿 표시
+    // 에러 토스트 표시
     toast.error(errorMessage);
 
     return Promise.reject(error);

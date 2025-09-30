@@ -19,7 +19,6 @@ import {
 function ApiTemplate() {
   const [apiData, setApiData] = useState([]);
   const didMountRef = useRef(false);
-  console.log(apiData);
 
   async function loadApiData() {
     /* idol 호출 */
