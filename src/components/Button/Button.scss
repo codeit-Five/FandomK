@@ -1,4 +1,4 @@
-@import '../../assets/styles/variables';
+@use '../../assets/styles/variables';
 
 .btn {
   /* 버튼 공통 스타일 */
@@ -11,9 +11,9 @@
     border-radius: 3px;
 
     &:disabled {
-    background: $gray2;
-    cursor: not-allowed;
-  }
+      background: $gray2;
+      cursor: not-allowed;
+    }
   }
 
   /* 모달 창 버튼 공통 스타일 */
