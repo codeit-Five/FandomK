@@ -14,8 +14,9 @@
     "sourceType": "module"
   },
   "rules": {
-    "prettier/prettier": ["error",{"endOfLine": "auto"}],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "react/react-in-jsx-scope": "off",
+    "arrow-body-style": "off",
     "import/extensions": "off",
     "import/no-absolute-path": "off",
     "import/no-unresolved": "off",
@@ -30,6 +31,13 @@
           "**/*.config.js",
           "**/*.config.ts"
         ]
+      }
+    ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": ["arrow-function", "function-declaration"],
+        "unnamedComponents": ["arrow-function", "function-expression"]
       }
     ]
   }
