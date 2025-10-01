@@ -54,6 +54,10 @@
     width: 525px;
     height: 693px;
     padding: 24px 24px 12px;
+
+    .modalTitle {
+      @include txt_style(18px, M);
+    }
   }
 
   // 크레딧 부족
@@ -84,7 +88,7 @@
 
   // 제목
   &Title {
-    @include txt_style(18px, M);
+    @include txt_style(18px, SB); 
     color: $white1;
   }
 
