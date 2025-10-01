@@ -33,6 +33,7 @@
 
   &Donate {
     @extend .btnBase;
+    @include txt_style(13px, B);
     width: 234px;
     height: 40px;
     padding: 2px 16px 3px;
@@ -44,8 +45,8 @@
   }
 
   &VoteChart {
-    @include txt_style(13px, M);
     @extend .btnBase;
+    @include txt_style(13px, B); 
     height: 32px;
     gap: 4px;
     padding: 2px 16px 3px;
@@ -77,8 +78,8 @@
   }
 
   &Add {
-    @include txt_style(16px, R);
     @extend .btnBase;
+    @include txt_style(16px, B);
     width: 255px;
     height: 48px;
     gap: 8px;
