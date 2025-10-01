@@ -1,0 +1,92 @@
+@use '../../assets/styles/variables' as *;
+
+.btn {
+  /* 버튼 공통 스타일 */
+  &Base {
+    @include txt_style(14px, R);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $gra;
+    border-radius: 3px;
+
+    &:disabled {
+      background: $gray2;
+      cursor: not-allowed;
+    }
+  }
+
+  /* 모달 창 버튼 공통 스타일 */
+  &Modal {
+    @extend .btnBase;
+    width: 295px;
+    height: 42px;
+    padding: 8px 0;
+  }
+
+  &Start {
+    @extend .btnBase;
+    width: 477px;
+    height: 48px;
+    padding: 11px 0;
+  }
+
+  &Donate {
+    @extend .btnBase;
+    width: 234px;
+    height: 40px;
+    padding: 2px 16px 3px;
+  }
+
+  &Donate.modal { 
+    @extend .btnModal; 
+    align-self: stretch;
+  }
+
+  &VoteChart {
+    @include txt_style(13px, M);
+    @extend .btnBase;
+    height: 32px;
+    gap: 4px;
+    padding: 2px 16px 3px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &Recharge {
+    @extend .btnModal; 
+
+    img {
+      width: 16px;
+    }
+  }
+
+  &Vote {
+    @extend .btnBase;
+    width: 477px;
+    height: 42px;
+    padding: 8px 0;
+  }
+
+  &Confirm {
+    @extend .btnModal;
+    align-self: stretch;
+  }
+
+  &Add {
+    @include txt_style(16px, R);
+    @extend .btnBase;
+    width: 255px;
+    height: 48px;
+    gap: 8px;
+    border-radius: 24px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { apiCall } from './baseApi';
 import { ToastContainer } from 'react-toastify';
+import { apiCall } from './baseApi';
 
 import ImageUpload from './imageApi';
 import idolMock from './mock/idolMock';
@@ -19,11 +19,11 @@ import {
 function ApiTemplate() {
   const [apiData, setApiData] = useState([]);
   const didMountRef = useRef(false);
+  console.log(apiData);
 
   async function loadApiData() {
     /* idol 호출 */
-    const result = await apiCall(getIdols, 100);
-    // const result = await apiCall(postIdols, idolMock[i]);
+    const result = await apiCall(getIdols, null, 100, '');
     // const result = await apiCall(postIdols, idolMock[0]);
     // const result = await apiCall(putIdols, 6348, idolMock[0]);
     // const result = await apiCall(deleteIdols, 6352);
