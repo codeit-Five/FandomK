@@ -32,8 +32,7 @@ export default function Button({
   isDisabled = false,
   onClick,
 }) {
-  const variantClass =
-    'btn' + variant.charAt(0).toUpperCase() + variant.slice(1);
+  const variantClass = `btn${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
 
   const contentKey =
     isDisabled && variant === 'vote' ? 'voteDisabled' : variant;
