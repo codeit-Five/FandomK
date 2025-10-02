@@ -29,20 +29,22 @@ export default function Modal({
           {/* 내용 */}
           <div className="modalContent">{children}</div>
 
-          {/* 하단 버튼 */}
-          <Button
-            variant={variant}
-            isModal={variant === 'donate' ? true : undefined}
-            disabled={isDisabled}
-            onClick={onClick}
-          />
+          <div className="modalFooter">
+            {/* 하단 버튼 */}
+            <Button
+              variant={variant}
+              isModal={variant === 'donate' ? true : undefined}
+              disabled={isDisabled}
+              onClick={onClick}
+            />
 
-          {/* 하단 버튼 아래 표시 */}
-          {isHasBottomContent && (
-            <div className="modalBottomContent">
-              투표하는 데 <span>1000 크레딧</span>이 소모됩니다.
-            </div>
-          )}
+            {/* 하단 버튼 아래 표시 */}
+            {isHasBottomContent && (
+              <div className="modalBottomContent">
+                투표하는 데 <span>1000 크레딧</span>이 소모됩니다.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     )

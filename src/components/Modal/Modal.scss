@@ -115,6 +115,10 @@
     flex-grow: 1;
   }
 
+  &Footer {
+    justify-items: center;
+  }
+
   // 하단 버튼 아래 내용
   &BottomContent {
     @include txt_style(12px, M);
