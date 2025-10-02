@@ -1,0 +1,129 @@
+@use '../../assets/styles/variables' as *;
+
+.modal {
+  // 모달 창 뒤 배경을 위한 오버레이 스타일 (Full Screen Overlay)
+  &Overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  // 모달 공통 베이스 스타일
+  &Base {
+    display: flex;
+    flex-direction: column;
+    background-color: $black2;
+    border-radius: 12px;
+  }
+
+  // 모달 공통 베이스 스타일 (모달 창 그림자 표시)
+  &BaseShadow {
+    @extend .modalBase;
+    gap: 24px;
+    align-items: flex-start;
+    flex-shrink: 0;
+    padding: 24px 16px 32px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+  }
+
+  // 크레딧 충전하기
+  &Recharge {
+    @extend .modalBaseShadow;
+    width: 327px;
+    height: 372px;
+  }
+
+  // 후원하기
+  &Donate {
+    @extend .modalBaseShadow;
+    width: 327px;
+    height: 509px;
+  }
+
+  // 차트 투표
+  &Vote {
+    @extend .modalBase;
+    width: 525px;
+    height: 693px;
+    padding: 24px 24px 12px;
+
+    .modalTitle {
+      @include txt_style(18px, M);
+    }
+  }
+
+  // 크레딧 부족
+  &Confirm {
+    @extend .modalBase;
+    width: 339px;
+    height: 331px;
+    padding: 24px 20px 32px 24px;
+
+    .modalHeader {
+      justify-content: flex-end;
+    }
+
+    .modalContent {
+      gap: 31px;
+      margin-top: 8px;
+      margin-bottom: 31px;
+    }
+  }
+
+  // 헤더 영역 (제목과 닫기 버튼을 포함)
+  &Header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // 제목
+  &Title {
+    @include txt_style(18px, SB); 
+    color: $white1;
+  }
+
+  // 닫기 버튼
+  &CloseBtn {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    background: none;
+    border: none;
+    outline: none;
+
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // 내용 영역 (나머지 공간을 차지하도록 설정)
+  &Content {
+    flex-grow: 1;
+  }
+
+  // 하단 버튼 아래 내용
+  &BottomContent {
+    @include txt_style(12px, M);
+    margin: 12px auto 0;
+    color: #ffffff;
+
+    span {
+      color: $coral;
+    }
+  }
+
+}
