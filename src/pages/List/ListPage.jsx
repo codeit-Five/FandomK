@@ -1,14 +1,13 @@
-import Header from "../../components/Header/Header";
+import Header from '../../components/Header/Header';
+import Chart from './Chart/Chart';
 
 function ListPage() {
-    return(
-    <>
+  return (
     <div>
-        <Header />
-        리스트 페이지 맞음 ㅇㅇ
+      <Header />
+      <Chart />
     </div>
-    </>
-    )
+  );
 }
 
 export default ListPage;
