@@ -51,7 +51,9 @@ export default function IdolCard({
           </>
         )}
       </div>
-      {voteCount && !isModal && <div className="voteCount">{voteCount}표</div>}
+      {voteCount !== undefined && !isModal && (
+        <div className="voteCount">{voteCount}표</div>
+      )}
     </>
   );
 
