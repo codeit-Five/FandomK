@@ -1,0 +1,152 @@
+@use '/src/assets/styles/variables' as *;
+@use '/src/assets/styles/font' as *;
+
+// Variables
+$whiteOpa8: rgba(255, 255, 255, 0.87);
+$whiteOpa6: rgba(255, 255, 255, 0.6);
+$whiteOpa2: rgba(255, 255, 255, 0.2);
+
+// Mixins
+@mixin buttonBase($width, $height) {
+  width: $width;
+  height: $height;
+  border-radius: 3px;
+}
+
+// ================== Components ==================
+.inner {
+  width: 1200px;
+  margin: 80px auto;
+}
+.chartWarp {
+  .titWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    .tit {
+      @include txt_style(24px, B);
+      line-height: 26px;
+    }
+  }
+
+  .chartBtns {
+    display: flex;
+    align-items: center;
+
+    .btnTab {
+      @include buttonBase(50%, 42px);
+      @include txt_style(14px, R);
+      line-height: 18px;
+      border-radius: 0;
+
+      &.active {
+        border-bottom: 1px solid $white;
+        background-color: $whiteOpa2;
+      }
+    }
+  }
+}
+
+.chartList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 24px;
+  margin-top: 16px;
+
+  li {
+    padding: 8px 0;
+    border-top: 1px solid $whiteOpa2;
+
+    &:first-child,
+    &:nth-child(2) {
+      border-top: none;
+    }
+
+    .idolCardImgBox {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.btnChartMore {
+  @include buttonBase(326px, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto 0;
+  background-color: $whiteOpa2;
+  border: 1px solid rgba(241, 238, 249, 0.8);
+}
+
+.modalVote {
+  .modalContent {
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $whiteOpa2;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: $whiteOpa2;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  }
+
+  .chartList {
+    li {
+      position: relative;
+      width: 100%;
+      &:nth-child(2) {
+        border-top: 1px solid $whiteOpa2;
+      }
+      .rdoBox {
+        position: absolute;
+        inset: 0;
+        input {
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+        }
+        label {
+          position: absolute;
+          inset: 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+/* Tablet (1199px 이하) */
+@media (max-width: 1199px) {
+  .inner {
+    width: 100%;
+  }
+  .chartWarp {
+    padding: 0 24px;
+  }
+  .chartList {
+    li {
+      width: 100%;
+      &:nth-child(2) {
+        border-top: 1px solid $whiteOpa2;
+      }
+      .idolCardChart {
+        width: 100%;
+      }
+    }
+  }
+}
