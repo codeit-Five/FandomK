@@ -1,0 +1,187 @@
+import { useEffect, useState } from 'react';
+import { apiCall } from '../../../apis/baseApi';
+import getCharts from '../../../apis/chartsApi';
+import { getIdols } from '../../../apis/idolsApi';
+import postVotes from '../../../apis/votesApi';
+import useWindowSize from '../../../hooks/useWindowSize';
+import Button from '../../../components/Button/Button';
+import Modal from '../../../components/Modal/Modal';
+import IdolCard from '../../../components/IdolCard/IdolCard';
+import './Chart.scss';
+
+const Chart = () => {
+  const [gender, setGender] = useState('female');
+  const [chartList, setChartList] = useState([]);
+  const [popChartList, setPopChartList] = useState([]);
+  const [cursor, setCursor] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { width } = useWindowSize();
+  const [selected, setSelected] = useState('');
+
+  // 해상도별 페이지
+  function setPaseSize() {
+    if (width < 640) return 5; // Mobile: 5개
+    if (width < 1200) return 5; // Tablet: 5개
+    return 10; // Desktop: 10개
+  }
+
+  // 아이돌 조회
+  async function loadIdols(
+    gender,
+    cursor = null,
+    pageSize = 5,
+    isLoadMore = false,
+  ) {
+    const result = await apiCall(getCharts, gender, cursor, pageSize);
+    if (result) {
+      if (isLoadMore) {
+        setChartList(prev => [...prev, ...result.idols]);
+      } else {
+        setChartList(result.idols); // 새로 로드: 새로운 데이터만
+      }
+      setCursor(result.nextCursor);
+    }
+  }
+
+  // 차트 정렬
+  const sortedChartList = [...chartList].sort(
+    (a, b) => b.totalVotes - a.totalVotes,
+  );
+
+  // 차트 성별 변경
+  const handleChartChange = newGender => {
+    if (newGender === gender) return;
+    setGender(newGender);
+    setCursor(null);
+    setChartList([]);
+  };
+
+  // 차트 더보기
+  const handleListMore = () => {
+    loadIdols(gender, cursor, setPaseSize(), true); // isLoadMore = true
+  };
+
+  // 차트팝업 아이돌 조회
+  async function loadPopIdols(gender, cursor, pageSize) {
+    const result = await apiCall(getCharts, gender, cursor, pageSize);
+    if (result) return setPopChartList(result.idols);
+  }
+  // 차트팝업 open
+  const handleOpen = () => {
+    loadPopIdols(gender, null, 150);
+    setIsModalOpen(true);
+  };
+  // 차트팝업 close
+  const handleClose = () => setIsModalOpen(false);
+
+  // 차트팝업 투표하기
+  async function postIdolVotes(idolId) {
+    const result = await apiCall(postVotes, idolId);
+    if (result) {
+      loadIdols(gender, null, setPaseSize());
+    }
+  }
+  const handleVotes = () => {
+    postIdolVotes(selected);
+    setIsModalOpen(false);
+    setSelected('');
+  };
+
+  useEffect(() => {
+    loadIdols(gender, null, setPaseSize());
+  }, [gender, setPaseSize()]);
+
+  return (
+    <section className="chartWarp inner">
+      <div className="titWrap">
+        <h1 className="tit">이달의 차트</h1>
+        <Button variant="voteChart" onClick={handleOpen} />
+      </div>
+      <div className="chartBtns">
+        <button
+          className={`btnTab  ${gender === 'female' ? 'active' : ''}`}
+          onClick={() => handleChartChange('female')}
+        >
+          이달의 여자 아이돌
+        </button>
+        <button
+          className={`btnTab  ${gender === 'male' ? 'active' : ''}`}
+          onClick={() => handleChartChange('male')}
+        >
+          이달의 남자 아이돌
+        </button>
+      </div>
+      <ul className="chartList">
+        {sortedChartList.map((item, index) => {
+          const { id, name, group, profilePicture, totalVotes } = item;
+          return (
+            <li key={id}>
+              <IdolCard
+                variant="chart"
+                imgUrl={profilePicture}
+                rankInfo={{ rank: index + 1, voteCount: totalVotes }}
+                profileInfo={{ groupName: group, idolName: name }}
+              />
+            </li>
+          );
+        })}
+      </ul>
+      {cursor && (
+        <button className="btnChartMore" onClick={handleListMore}>
+          더 보기
+        </button>
+      )}
+
+      {/* 차트투표팝업 */}
+      <Modal
+        variant="vote"
+        title={`이달의 ${gender === 'female' ? '여자' : '남자'} 아이돌`}
+        isOpen={isModalOpen}
+        onClose={handleClose}
+        isHasBottomContent
+        onClick={handleVotes}
+      >
+        <ul className="chartList">
+          {popChartList.map((item, index) => {
+            const { id, name, group, profilePicture, totalVotes } = item;
+            return (
+              <li key={id}>
+                <IdolCard
+                  variant="chart"
+                  imgUrl={profilePicture}
+                  rankInfo={{ rank: index + 1, voteCount: totalVotes }}
+                  profileInfo={{ groupName: group, idolName: name }}
+                  isModal
+                />
+                <RadioBox
+                  id={id}
+                  rdoName="rdoChart"
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </Modal>
+    </section>
+  );
+};
+
+export default Chart;
+
+export const RadioBox = ({ id, rdoName, selected, setSelected }) => {
+  return (
+    <div className="rdoBox">
+      <input
+        type="radio"
+        id={`rdo${id}`}
+        name={rdoName}
+        value={id}
+        checked={selected === id}
+        onChange={() => setSelected(id)}
+      />
+      <label htmlFor={`rdo${id}`}></label>
+    </div>
+  );
+};
