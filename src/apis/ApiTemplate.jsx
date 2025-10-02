@@ -23,7 +23,7 @@ function ApiTemplate() {
 
   async function loadApiData() {
     /* idol 호출 */
-    // const result = await apiCall(getIdols, null, 100, '');
+    const result = await apiCall(getIdols, null, 100, '');
     // const result = await apiCall(postIdols, idolMock[0]);
     // const result = await apiCall(putIdols, 6348, idolMock[0]);
     // const result = await apiCall(deleteIdols, 6352);
