@@ -50,9 +50,9 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
 
 .chartList {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   gap: 0 24px;
+  justify-content: space-between;
+  flex-wrap: wrap;
   margin-top: 16px;
 
   li {
@@ -62,16 +62,6 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
     &:first-child,
     &:nth-child(2) {
       border-top: none;
-    }
-
-    .idolCardImgBox {
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 50%;
-      }
     }
   }
 }
@@ -122,8 +112,8 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
         }
         label {
           position: absolute;
-          inset: 0;
           cursor: pointer;
+          inset: 0;
         }
       }
     }
