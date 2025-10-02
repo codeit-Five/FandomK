@@ -1,7 +1,10 @@
+import Header from "../../components/Header/Header";
+
 function MyPage() {
     return(
         <div>
-            안녕하세여 Mypage 입니다
+            <Header />
+            마이페이지 임 !
         </div>
     )
 }
