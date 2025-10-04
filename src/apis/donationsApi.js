@@ -1,9 +1,12 @@
 import api from './baseApi';
 
 // 후원 조회
-export async function getDonations(pageSize, priorityIdolIds, cursor) {
+export async function getDonations(pageSize, cursor, priorityIdolIds) {
   const res = await api.get('/donations', {
-    params: { pageSize, priorityIdolIds, cursor },
+    params: { pageSize, cursor, priorityIdolIds },
+    paramsSerializer: {
+      indexes: null,
+    },
   });
   return res.data;
 }

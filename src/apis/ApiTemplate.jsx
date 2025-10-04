@@ -30,7 +30,7 @@ function ApiTemplate() {
     // const result = await apiCall(deleteIdols, i);
 
     /* donations 호출 */
-    // const result = await apiCall(getDonations, 100);
+    // const result = await apiCall(getDonations, 10, null, [7967, 7920, 7934]);
     // const result = await apiCall(postDonations, donaMock[i]);
     // const result = await apiCall(putDonations, 939, donaMock[1]);
     // const result = await apiCall(deleteDonations, 939);

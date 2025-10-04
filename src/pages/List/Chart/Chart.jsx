@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiCall } from '../../../apis/baseApi';
 import getCharts from '../../../apis/chartsApi';
-import { getIdols } from '../../../apis/idolsApi';
 import postVotes from '../../../apis/votesApi';
 import useWindowSize from '../../../hooks/useWindowSize';
 import Button from '../../../components/Button/Button';
