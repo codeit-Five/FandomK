@@ -1,6 +1,5 @@
 import './assets/styles/App.scss';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ApiTemplate from './apis/ApiTemplate';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/Landing/LandingPage';
 import ListPage from './pages/List/ListPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
