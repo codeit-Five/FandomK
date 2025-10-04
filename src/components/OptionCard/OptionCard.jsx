@@ -13,10 +13,12 @@ export default function OptionCard({
   const { imgUrl, rankInfo, profileInfo } = idolCardInfo || {};
 
   const variantClass = `optionCard${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
+  const radioId = `radio${id}`;
   const isSelected = selected === id;
 
   return (
-    <div
+    <label
+      htmlFor={isRadioDisplay ? radioId : undefined}
       className={`${variantClass} ${isSelected && variant === 'recharge' ? 'selected' : ''}`.trim()}
     >
       {variant === 'recharge' && (
@@ -40,13 +42,13 @@ export default function OptionCard({
       {isRadioDisplay && (
         <input
           type="radio"
-          id={`radio${id}`}
+          id={radioId}
           name={name}
           value={id}
-          // checked={selected === id}
+          checked={selected === id}
           onChange={() => setSelected(id)}
         />
       )}
-    </div>
+    </label>
   );
 }
