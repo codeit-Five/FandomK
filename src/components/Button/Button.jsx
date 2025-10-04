@@ -6,6 +6,7 @@ import btnPlus from '../../assets/image/icons/ic_btn_plus.svg';
 const BUTTON_CONTENT = {
   start: '지금 시작하기',
   donate: '후원하기',
+  donateDisabled: '🎉 후원 마감 🎉',
   voteChart: (
     <>
       <img src={btnChart} alt="Button Chart" /> <span>차트 투표하기</span>
@@ -35,7 +36,9 @@ export default function Button({
   const variantClass = `btn${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
 
   const contentKey =
-    isDisabled && variant === 'vote' ? 'voteDisabled' : variant;
+    isDisabled && (variant === 'vote' || variant === 'donate')
+      ? `${variant}Disabled`
+      : variant;
 
   return (
     <button
