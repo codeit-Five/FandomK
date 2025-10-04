@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import btnClose from '../../assets/image/icons/ic_btn_close.svg';
+import btnPrev from '../../assets/image/icons/ic_btn_prev.svg';
+import useWindowSize from '../../hooks/useWindowSize';
 import './Modal.scss';
 import Button from '../Button/Button';
 
@@ -14,6 +17,13 @@ export default function Modal({
 }) {
   const variantClass = `modal${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
 
+  const { width } = useWindowSize();
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (width < 525) return setIsMobile(true);
+    return setIsMobile(false);
+  }, [width]);
+
   return (
     isOpen && (
       <div className="modalOverlay">
@@ -22,7 +32,10 @@ export default function Modal({
           <div className="modalHeader">
             {title && <div className="modalTitle">{title}</div>}
             <button className="modalCloseBtn" onClick={onClose}>
-              <img src={btnClose} alt="Button Close" />
+              <img
+                src={variant === 'vote' && isMobile ? btnPrev : btnClose}
+                alt="Button Close"
+              />
             </button>
           </div>
 
