@@ -6,6 +6,7 @@ import useWindowSize from '../../../hooks/useWindowSize';
 import Button from '../../../components/Button/Button';
 import Modal from '../../../components/Modal/Modal';
 import IdolCard from '../../../components/IdolCard/IdolCard';
+import OptionCard from '../../../components/OptionCard/OptionCard';
 import './Chart.scss';
 
 const Chart = () => {
@@ -15,7 +16,7 @@ const Chart = () => {
   const [cursor, setCursor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { width } = useWindowSize();
-  const [selected, setSelected] = useState('');
+  const [selectedIdol, setSelectedIdol] = useState(null);
 
   // 해상도별 페이지
   function setPaseSize() {
@@ -52,7 +53,6 @@ const Chart = () => {
     if (newGender === gender) return;
     setGender(newGender);
     setCursor(null);
-    setChartList([]);
   };
 
   // 차트 더보기
@@ -63,7 +63,7 @@ const Chart = () => {
   // 차트팝업 아이돌 조회
   async function loadPopIdols(gender, cursor, pageSize) {
     const result = await apiCall(getCharts, gender, cursor, pageSize);
-    if (result) return setPopChartList(result.idols);
+    if (result) setPopChartList(result.idols);
   }
   // 차트팝업 open
   const handleOpen = () => {
@@ -81,9 +81,9 @@ const Chart = () => {
     }
   }
   const handleVotes = () => {
-    postIdolVotes(selected);
+    postIdolVotes(selectedIdol);
     setIsModalOpen(false);
-    setSelected('');
+    setSelectedIdol('');
   };
 
   useEffect(() => {
@@ -145,18 +145,20 @@ const Chart = () => {
             const { id, name, group, profilePicture, totalVotes } = item;
             return (
               <li key={id}>
-                <IdolCard
+                <OptionCard
                   variant="chart"
-                  imgUrl={profilePicture}
-                  rankInfo={{ rank: index + 1, voteCount: totalVotes }}
-                  profileInfo={{ groupName: group, idolName: name }}
-                  isModal
-                />
-                <RadioBox
-                  id={id}
-                  rdoName="rdoChart"
-                  selected={selected}
-                  setSelected={setSelected}
+                  isRadioDisplay
+                  radioInfo={{
+                    id,
+                    name: 'idolOption',
+                    selected: selectedIdol,
+                    setSelected: setSelectedIdol,
+                  }}
+                  idolCardInfo={{
+                    imgUrl: profilePicture,
+                    rankInfo: { rank: index + 1, voteCount: totalVotes },
+                    profileInfo: { groupName: group, idolName: name },
+                  }}
                 />
               </li>
             );
@@ -168,19 +170,3 @@ const Chart = () => {
 };
 
 export default Chart;
-
-export const RadioBox = ({ id, rdoName, selected, setSelected }) => {
-  return (
-    <div className="rdoBox">
-      <input
-        type="radio"
-        id={`rdo${id}`}
-        name={rdoName}
-        value={id}
-        checked={selected === id}
-        onChange={() => setSelected(id)}
-      />
-      <label htmlFor={`rdo${id}`}></label>
-    </div>
-  );
-};

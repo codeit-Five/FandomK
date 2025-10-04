@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
   }
 
   // 모달 공통 베이스 스타일
@@ -88,7 +88,7 @@
 
   // 제목
   &Title {
-    @include txt_style(18px, SB); 
+    @include txt_style(18px, SB);
     color: $white1;
   }
 
@@ -129,5 +129,4 @@
       color: $coral;
     }
   }
-
 }
