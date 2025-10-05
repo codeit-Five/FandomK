@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import btnClose from '../../assets/image/icons/ic_btn_close.svg';
 import btnPrev from '../../assets/image/icons/ic_btn_prev.svg';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -17,6 +17,7 @@ export default function Modal({
 }) {
   const variantClass = `modal${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
 
+  // mobile 화면 체크 (투표모달창)
   const { width } = useWindowSize();
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -24,9 +25,15 @@ export default function Modal({
     return setIsMobile(false);
   }, [width]);
 
+  // 배경 클릭시 팝업 close
+  const modalRef = useRef();
+  const handleModalOverlay = e => {
+    if (e.target === modalRef.current) onClose();
+  };
+
   return (
     isOpen && (
-      <div className="modalOverlay">
+      <div className="modalOverlay" ref={modalRef} onClick={handleModalOverlay}>
         <div className={variantClass}>
           {/* 헤더 영역 */}
           <div className="modalHeader">
@@ -46,7 +53,7 @@ export default function Modal({
             {/* 하단 버튼 */}
             <Button
               variant={variant}
-              isModal={variant === 'donate' ? true : undefined}
+              isModal={variant === 'donate'}
               disabled={isDisabled}
               onClick={onClick}
             />

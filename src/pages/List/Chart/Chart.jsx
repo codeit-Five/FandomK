@@ -3,6 +3,7 @@ import { apiCall } from '../../../apis/baseApi';
 import getCharts from '../../../apis/chartsApi';
 import postVotes from '../../../apis/votesApi';
 import useWindowSize from '../../../hooks/useWindowSize';
+import useModal from '../../../hooks/useModal';
 import Button from '../../../components/Button/Button';
 import Modal from '../../../components/Modal/Modal';
 import IdolCard from '../../../components/IdolCard/IdolCard';
@@ -14,9 +15,9 @@ const Chart = () => {
   const [chartList, setChartList] = useState([]);
   const [popChartList, setPopChartList] = useState([]);
   const [cursor, setCursor] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { width } = useWindowSize();
   const [selectedIdol, setSelectedIdol] = useState(null);
+  const modal = useModal();
 
   // 해상도별 페이지
   function setPaseSize() {
@@ -68,10 +69,10 @@ const Chart = () => {
   // 차트팝업 open
   const handleOpen = () => {
     loadPopIdols(gender, null, 150);
-    setIsModalOpen(true);
+    modal.open();
   };
   // 차트팝업 close
-  const handleClose = () => setIsModalOpen(false);
+  const handleClose = () => modal.close();
 
   // 차트팝업 투표하기
   async function postIdolVotes(idolId) {
@@ -82,13 +83,13 @@ const Chart = () => {
   }
   const handleVotes = () => {
     postIdolVotes(selectedIdol);
-    setIsModalOpen(false);
+    modal.close();
     setSelectedIdol('');
   };
 
   useEffect(() => {
     loadIdols(gender, null, setPaseSize());
-  }, [gender, setPaseSize()]);
+  }, [gender, width]);
 
   return (
     <section className="chartWarp inner">
@@ -135,7 +136,7 @@ const Chart = () => {
       <Modal
         variant="vote"
         title={`이달의 ${gender === 'female' ? '여자' : '남자'} 아이돌`}
-        isOpen={isModalOpen}
+        isOpen={modal.isModalOpen}
         onClose={handleClose}
         isHasBottomContent
         onClick={handleVotes}
