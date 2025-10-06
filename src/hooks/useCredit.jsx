@@ -2,9 +2,10 @@ import { create } from 'zustand';
 
 const useCredit = create(set => ({
   credit: 0,
-  increaseCredit: donation =>
-    set(state => ({ credit: state.credit + donation })),
-  decreaseCredit: () => set(state => ({ credit: state.credit - 1000 })),
+  increaseCredit: myCredit =>
+    set(state => ({ credit: state.credit + myCredit })),
+  decreaseCredit: myCredit =>
+    set(state => ({ credit: state.credit - myCredit })),
 }));
 
 export default useCredit;
