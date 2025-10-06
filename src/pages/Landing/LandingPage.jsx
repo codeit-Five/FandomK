@@ -2,6 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import './LandingPage.scss';
 import logo from '../../assets/image/logo/fandom-klogo.svg';
 import bg from '../../assets/image/landing-bg.png';
+import landing1_1_img from '../../assets/image/landing-1-1.png';
+import landing1_2_bg from '../../assets/image/landing1-2.jpg';
+import landing2_1_img from '../../assets/image/landing2-1.png';
+import landing2_2_bg from '../../assets/image/landing2-2.jpg';
+import landing3_1_img from '../../assets/image/landing3-1.png';
+import landing3_2_bg from '../../assets/image/landing3-2.jpg';
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -12,22 +18,59 @@ function LandingPage() {
 
   return (
     <>
-    <div className="landing" style={{ backgroundImage: `url(${bg})` }}>
-      <div className="overlay">
-        <p className="subtitle">
-          내가 좋아하는 아이돌을 <br />
-          가장 <span className="highlight">쉽게 덕질</span>하는 방법
-        </p>
-        <img src={logo} alt="Fandom-K Logo" className="logo" onClick={handleStart} />
-        {/* 아니 ㅋㅋㅋ 이거 br 이러면 안되는거 아는데 css능력이 딸려서 이렇게 일단 해놨어요 ㅠㅠ 보고 너무 웃지 말아줘요... 백그라운드 이미지 opacity 70퍼도 해야함 ㅠ */}
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-        {/* 랜딩페이지에서만 써서 따로 컴포넌트 제작안하고 만듬 */}
-        <button className="start-btn" onClick={handleStart}>
-          지금 시작하기
-        </button>
+      <div className="landing">
+        <div className="background-image" style={{ backgroundImage: `url(${bg})` }}></div>
+        <div className="overlay overlay-main">
+          <div className="landing-header">
+            <p className="subtitle">
+              내가 좋아하는 아이돌을 <br />
+              가장 <span className="highlight">쉽게 덕질</span>하는 방법
+            </p>
+            <img src={logo} alt="Fandom-K Logo" className="logo" onClick={handleStart} />
+          </div>
+          <div className="button-container">
+            <button className="start-btn" onClick={handleStart}>
+              지금 시작하기
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+      <div className="landing-section-2">
+        <div className="background-image" style={{ backgroundImage: `url(${landing1_2_bg})` }}></div>
+        <div className="overlay-2">
+          <p className="slogan">후원하기</p>
+          <p className="slogan-subtitle">
+            좋아하는 아이돌에게
+            <br />
+            쉽게 조공해 보세요
+          </p>
+          <img src={landing1_1_img} alt="landing page section 1" className="landing-image" />
+        </div>
+      </div>
+      <div className="landing-section-3">
+        <div className="background-image" style={{ backgroundImage: `url(${landing2_2_bg})` }}></div>
+        <div className="overlay-3">
+          <p className="slogan">이달의 아티스트</p>
+          <p className="slogan-subtitle">
+            내 아티스트에게 1등의
+            <br />
+            영예를 선물하세요
+          </p>
+          <img src={landing2_1_img} alt="landing page section 2" className="landing-image" />
+        </div>
+      </div>
+      <div className="landing-section-4">
+        <div className="background-image" style={{ backgroundImage: `url(${landing3_2_bg})` }}></div>
+        <div className="overlay-4">
+          <p className="slogan">나만의 아티스트</p>
+          <p className="slogan-subtitle">
+            좋아하는 아티스트들의
+            <br />
+            소식을 모아보세요
+          </p>
+          <img src={landing3_1_img} alt="landing page section 3" className="landing-image" />
+        </div>
+      </div>
     </>
   );
 }
