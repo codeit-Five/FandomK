@@ -81,6 +81,26 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
   background-color: $whiteOpa2;
   border: 1px solid rgba(241, 238, 249, 0.8);
 }
+.creditConfirm {
+  @include txt_style(16px, M);
+  position: relative;
+  padding-top: 150px;
+  text-align: center;
+  span {
+    color: $coral;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 183px;
+    height: 140%;
+    background: url(../../../assets/image/icons/ic_credit_lg.svg) no-repeat 0
+      0 / contain;
+  }
+}
 
 .modalVote {
   .modalHeader {

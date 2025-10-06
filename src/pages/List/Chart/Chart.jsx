@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { apiCall } from '../../../apis/baseApi';
 import getCharts from '../../../apis/chartsApi';
 import postVotes from '../../../apis/votesApi';
 import useWindowSize from '../../../hooks/useWindowSize';
+import useCredit from '../../../hooks/useCredit';
 import Button from '../../../components/Button/Button';
 import Modal from '../../../components/Modal/Modal';
 import IdolCard from '../../../components/IdolCard/IdolCard';
 import OptionCard from '../../../components/OptionCard/OptionCard';
 import './Chart.scss';
+
+const CreditBtn = styled.button.attrs({ className: 'btnCredit' })`
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 0 3px;
+  border: 1px solid #fff;
+`;
 
 const Chart = () => {
   const [gender, setGender] = useState('female');
@@ -18,6 +27,9 @@ const Chart = () => {
   const [selectedIdol, setSelectedIdol] = useState(null);
 
   const [isChartOpen, setIsChartOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const { credit, increaseCredit, decreaseCredit } = useCredit(state => state);
+
   // 해상도별 페이지
   function setPaseSize() {
     if (width < 640) return 5; // Mobile: 5개
@@ -77,23 +89,56 @@ const Chart = () => {
   };
 
   // 차트팝업 투표하기
-  async function postIdolVotes(idolId) {
-    const result = await apiCall(postVotes, idolId);
-    if (result) {
-      loadIdols(gender, null, setPaseSize());
-    }
-  }
   const handleVotes = () => {
-    postIdolVotes(selectedIdol);
+    async function postIdolVotes(idolId) {
+      const result = await apiCall(postVotes, idolId);
+      if (result) {
+        loadIdols(gender, null, setPaseSize());
+      }
+    }
+    if (credit >= 1000) {
+      decreaseCredit();
+      postIdolVotes(selectedIdol);
+    } else {
+      setIsConfirmOpen(true);
+    }
     handleClose();
   };
+
+  // 크래잇컨펌 close
+  const handleConfirmClose = () => setIsConfirmOpen(false);
 
   useEffect(() => {
     loadIdols(gender, null, setPaseSize());
   }, [gender, width]);
 
+  // 임시 크래딧 추가
+  const handleCredit = e => {
+    const value = Number(e.target.innerText);
+    increaseCredit(value);
+  };
+
   return (
     <section className="chartWarp inner">
+      <div
+        style={{
+          marginBottom: '25px',
+        }}
+      >
+        <div>
+          임시 크레딧 :
+          <CreditBtn className="btnCredit" onClick={e => handleCredit(e)}>
+            100
+          </CreditBtn>
+          <CreditBtn className="btnCredit" onClick={e => handleCredit(e)}>
+            500
+          </CreditBtn>
+          <CreditBtn className="btnCredit" onClick={e => handleCredit(e)}>
+            1000
+          </CreditBtn>
+        </div>
+        <div>현재 크래딧 : {credit}</div>
+      </div>
       <div className="titWrap">
         <h1 className="tit">이달의 차트</h1>
         <Button variant="voteChart" onClick={handleOpen} />
@@ -166,6 +211,19 @@ const Chart = () => {
             );
           })}
         </ul>
+      </Modal>
+
+      {/* 크레딧 부족 */}
+      <Modal
+        variant="confirm"
+        bottomBtn="확인"
+        isOpen={isConfirmOpen}
+        onClose={handleConfirmClose}
+        onClick={handleConfirmClose}
+      >
+        <div className="creditConfirm">
+          앗! 투표하기 위한 <span>크레딧</span>이 부족해요
+        </div>
       </Modal>
     </section>
   );
