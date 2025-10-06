@@ -14,10 +14,10 @@ const Chart = () => {
   const [chartList, setChartList] = useState([]);
   const [popChartList, setPopChartList] = useState([]);
   const [cursor, setCursor] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { width } = useWindowSize();
   const [selectedIdol, setSelectedIdol] = useState(null);
 
+  const [isChartOpen, setIsChartOpen] = useState(false);
   // 해상도별 페이지
   function setPaseSize() {
     if (width < 640) return 5; // Mobile: 5개
@@ -68,10 +68,13 @@ const Chart = () => {
   // 차트팝업 open
   const handleOpen = () => {
     loadPopIdols(gender, null, 150);
-    setIsModalOpen(true);
+    setIsChartOpen(true);
   };
   // 차트팝업 close
-  const handleClose = () => setIsModalOpen(false);
+  const handleClose = () => {
+    setIsChartOpen(false);
+    setSelectedIdol('');
+  };
 
   // 차트팝업 투표하기
   async function postIdolVotes(idolId) {
@@ -82,13 +85,12 @@ const Chart = () => {
   }
   const handleVotes = () => {
     postIdolVotes(selectedIdol);
-    setIsModalOpen(false);
-    setSelectedIdol('');
+    handleClose();
   };
 
   useEffect(() => {
     loadIdols(gender, null, setPaseSize());
-  }, [gender, setPaseSize()]);
+  }, [gender, width]);
 
   return (
     <section className="chartWarp inner">
@@ -135,7 +137,7 @@ const Chart = () => {
       <Modal
         variant="vote"
         title={`이달의 ${gender === 'female' ? '여자' : '남자'} 아이돌`}
-        isOpen={isModalOpen}
+        isOpen={isChartOpen}
         onClose={handleClose}
         isHasBottomContent
         onClick={handleVotes}
