@@ -19,6 +19,7 @@ const CreditBtn = styled.button.attrs({ className: 'btnCredit' })`
 `;
 
 const Chart = () => {
+  const VOTE_CREDIT = 1000;
   const [gender, setGender] = useState('female');
   const [chartList, setChartList] = useState([]);
   const [popChartList, setPopChartList] = useState([]);
@@ -97,7 +98,7 @@ const Chart = () => {
       }
     }
     if (credit >= 1000) {
-      decreaseCredit();
+      decreaseCredit(VOTE_CREDIT);
       postIdolVotes(selectedIdol);
     } else {
       setIsConfirmOpen(true);
