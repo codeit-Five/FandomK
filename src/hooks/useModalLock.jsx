@@ -1,14 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-export default function useModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const open = () => setIsModalOpen(true);
-  const close = () => setIsModalOpen(false);
-
+export default function useModalLock(isOpen) {
   useEffect(() => {
-    if (!isModalOpen) return;
-
+    if (!isOpen) return;
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
@@ -21,7 +15,5 @@ export default function useModal() {
       document.body.style.cssText = '';
       window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     };
-  }, [isModalOpen]);
-
-  return { isModalOpen, open, close };
+  }, [isOpen]);
 }
