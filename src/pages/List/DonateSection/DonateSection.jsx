@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Donate from '../Donate/Donate';
 import { apiCall } from '../../../apis/baseApi';
 import { getDonations } from '../../../apis/donationsApi';
@@ -9,6 +9,7 @@ import arrowRight from '../../../assets/image/icons/ic_arrow_right.svg';
 const PAGE_SIZE = 4;
 
 const DonateSection = () => {
+  const didMountRef = useRef(false);
   const [donateList, setDonateList] = useState([]);
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
@@ -79,6 +80,11 @@ const DonateSection = () => {
   const isLastPage = endIndex >= donateList.length && !hasMore;
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && !didMountRef.current) {
+      didMountRef.current = true;
+      return; // 첫 번째 실행은 여기서 종료 (POST 방지)
+    }
+
     loadDonation();
   }, []);
 
