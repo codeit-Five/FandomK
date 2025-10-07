@@ -26,6 +26,20 @@ const DonateSection = () => {
     setIsLoading(false);
   }
 
+  // 후원 후 데이터 새로고침
+  const refreshDonations = async () => {
+    setIsLoading(true);
+    // 처음부터 다시 로드
+    const result = await apiCall(getDonations, PAGE_SIZE, null, null);
+    if (result) {
+      setDonateList(result.list);
+      setCursor(result.nextCursor);
+      setHasMore(result.nextCursor !== null);
+      setCurrentPage(0); // 첫 페이지로 이동
+    }
+    setIsLoading(false);
+  };
+
   // 다음 페이지로 이동
   const handleNext = async () => {
     if (isLoading) return;
@@ -83,7 +97,11 @@ const DonateSection = () => {
         )}
         <div className="donateList">
           {currentItems.map(donation => (
-            <Donate key={donation.id} donation={donation} />
+            <Donate
+              key={donation.id}
+              donation={donation}
+              onDonateSuccess={refreshDonations}
+            />
           ))}
         </div>
         {!isLastPage && (

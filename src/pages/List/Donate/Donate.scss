@@ -2,6 +2,7 @@
 
 .donate {
   &Container {
+    position: relative;
     display: flex;
     width: 282px;
     height: 402px;
@@ -79,6 +80,7 @@
     width: 100%;
     height: 26px;
     justify-content: space-between;
+    border-bottom: 1px solid $white;
     line-height: 18px;
     letter-spacing: -0.165px;
     align-Items: center;
@@ -103,20 +105,11 @@
   }
 
   &Progress {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     height: 1px;
     background-color: $coral;
-    transition: width 0.3s ease;
-
-    &::before {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 282px;
-      height: 1px;
-      background-color: $white;
-      content: '';
-    }
   }
 
   &Modal{
@@ -167,7 +160,6 @@
 
         span {
           @include txt_style(12px, M);
-          display: none;
           margin-top: 6px;
           color: #ff2626;
         }
@@ -184,7 +176,7 @@
         border: 1px solid $white;
         border-radius: 8px;
 
-        &.selected {
+        &.overCredit {
           border: 1px solid #ff3b3b;
         }
 

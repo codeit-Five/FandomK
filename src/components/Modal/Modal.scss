@@ -51,8 +51,12 @@
   &Donate {
     @extend .modalBaseShadow;
     width: 327px;
-    min-height: 509px;
-    max-height: 529px;
+    height: 509px;
+    transition: height 0.2s ease;
+
+    &:has(.overCredit) {
+      height: 529px;
+    }
   }
 
   // 차트 투표
