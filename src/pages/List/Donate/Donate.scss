@@ -1,0 +1,214 @@
+@use '../../../assets/styles/variables' as *;
+
+.donate {
+  &Container {
+    display: flex;
+    width: 282px;
+    height: 402px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    color: $white;
+  }
+
+  &Header {
+    position: relative;
+    width: 100%;
+    height: 293px;
+    overflow: hidden;
+
+    .donateImgBox {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 58.9%, #000 100%);
+        content: '';
+        pointer-events: none;
+      }
+
+       img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      } 
+
+      Button {
+        position: absolute;
+        bottom: 20px;
+        left: 24px;
+        z-index: 1;
+      }
+    }
+  }
+
+  &Info {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 12px;
+    margin-bottom: 24px;
+
+    &SubTitle {
+      @include txt_style(16px, R);
+      line-height: 18px;
+      letter-spacing: -0.165px;
+      opacity: 0.4;
+    }
+
+    &Title {
+      @include txt_style(18px, M);
+      color: $white1;
+    }
+  }
+
+  &Footer {
+    @include txt_style(12px, R);
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 26px;
+    justify-content: space-between;
+    line-height: 18px;
+    letter-spacing: -0.165px;
+    align-Items: center;
+
+    .donateCredit {
+      display: flex;
+      color: $coral;
+      align-Items: center;
+
+      & img {
+        display: flex;
+        width: 18px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .donateRemainingDays {
+      color: $white1;
+      text-align: right;
+    }
+  }
+
+  &Progress {
+    position: relative;
+    height: 1px;
+    background-color: $coral;
+    transition: width 0.3s ease;
+
+    &::before {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 282px;
+      height: 1px;
+      background-color: $white;
+      content: '';
+    }
+  }
+
+  &Modal{
+    &Info {
+      display: flex;
+      width: 295px;
+      height: 257px;
+      gap: 10px;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 24px;
+
+      img {
+        width: 158px;
+        height: 206px;
+        border-radius: 8px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      &Box {
+        display: flex;
+        height: 41px;
+        gap: 6px;
+        align-items: flex-start;
+        flex-direction: column;
+
+        .subTitle {
+          @include txt_style(12px, R);
+          line-height: 18px;
+          letter-spacing: -0.165px; 
+          opacity: 0.4;
+        }
+
+        .title {
+          @include txt_style(14px, M);
+          color: $white1;
+        }
+      }
+    }
+
+    &Credit {
+      &Box {
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: column;
+
+        span {
+          @include txt_style(12px, M);
+          display: none;
+          margin-top: 6px;
+          color: #ff2626;
+        }
+      }
+
+      &Input {
+        display: flex;
+        width: 295px;
+        height: 58px;
+        gap: 8px;
+        align-items: center;
+        padding: 16px;
+        background-color: #272f3d;
+        border: 1px solid $white;
+        border-radius: 8px;
+
+        &.selected {
+          border: 1px solid #ff3b3b;
+        }
+
+        input {
+          @include txt_style(20px, B);
+          display: inline-flex;
+          width: 231px;
+          height: 100%;
+          background-color: transparent; 
+          color: $white;
+          border: none;
+          outline: none;
+
+          &::placeholder {
+            color: $gray1;
+          }
+        }
+
+        img {
+          width: 24px;
+          height: 24px;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}

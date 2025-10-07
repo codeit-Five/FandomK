@@ -45,7 +45,8 @@
   &Donate {
     @extend .modalBaseShadow;
     width: 327px;
-    height: 509px;
+    min-height: 509px;
+    max-height: 529px;
   }
 
   // 차트 투표
