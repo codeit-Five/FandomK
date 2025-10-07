@@ -1,0 +1,51 @@
+@use '../../../assets/styles/variables' as *;
+
+.credit {
+  &Section {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: 131px;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    margin: 50px auto;
+    padding: 0 78px;
+    border: 1px solid rgba(241, 238, 249, 0.80);
+    border-radius: 8px;
+  }
+
+  &Box {
+    display: flex;
+    flex-direction: column;
+
+    &Title {
+      @include txt_style(16px, R);
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.60);
+    }
+  }
+
+  &Amount {
+    display: flex;
+    align-items: center;
+    
+    img {
+      width: 26px;
+    }
+
+    span {
+      @include txt_style(24px, B);
+      color: rgba(255, 255, 255, 0.87);
+    }
+  }
+
+  &ChargeBtn {
+    @include txt_style(16px, B);
+    width: 70px;
+    background-color: transparent;
+    color: $coral;
+    line-height:  26px;
+    letter-spacing: 0.8px;
+  }
+}
