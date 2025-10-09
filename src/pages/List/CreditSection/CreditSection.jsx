@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import useCredit from '../../../hooks/useCredit';
+import useNumberFormat from '../../../hooks/useNumberFormat';
+import useCountAnimation from '../../../hooks/useCountAnimation';
 import Modal from '../../../components/Modal/Modal';
 import OptionCard from '../../../components/OptionCard/OptionCard';
 import './CreditSection.scss';
@@ -11,6 +13,9 @@ const CreditSection = () => {
   const [isRechargeOpen, setIsRechargeOpen] = useState(false);
   const { credit, increaseCredit } = useCredit(state => state);
   const [selectedCredit, setSelectedCredit] = useState(0);
+
+  const animatedCredit = useCountAnimation(credit);
+  const formattedCredit = useNumberFormat(animatedCredit);
 
   // 크레딧 충전하기 Modal Open
   const handleOpenModal = () => {
@@ -36,7 +41,7 @@ const CreditSection = () => {
           <h2 className="creditBoxTitle">내 크레딧</h2>
           <div className="creditAmount">
             <img src={creditIcon} alt="credit icon" />
-            <span>{credit} </span>
+            <span>{formattedCredit} </span>
           </div>
         </div>
         <button className="creditChargeBtn" onClick={handleOpenModal}>
