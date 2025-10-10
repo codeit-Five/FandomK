@@ -37,16 +37,18 @@ const CreditSection = () => {
   return (
     <>
       <section className="creditSection">
-        <div className="creditBox">
-          <h2 className="creditBoxTitle">내 크레딧</h2>
-          <div className="creditAmount">
-            <img src={creditIcon} alt="credit icon" />
-            <span>{formattedCredit} </span>
+        <div className="creditContainer">
+          <div className="creditBox">
+            <h2 className="creditBoxTitle">내 크레딧</h2>
+            <div className="creditAmount">
+              <img src={creditIcon} alt="credit icon" />
+              <span>{formattedCredit} </span>
+            </div>
           </div>
+          <button className="creditChargeBtn" onClick={handleOpenModal}>
+            충전하기
+          </button>
         </div>
-        <button className="creditChargeBtn" onClick={handleOpenModal}>
-          충전하기
-        </button>
       </section>
 
       {/* 크레딧 충전하기 Modal */}
