@@ -1,0 +1,410 @@
+[
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069646397/ReiNaoi.webp",
+    "group": "IVE",
+    "gender": "female",
+    "name": "레이"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069670910/Ryujin.webp",
+    "group": "ITZY",
+    "gender": "female",
+    "name": "류진"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069687750/Yeji.webp",
+    "group": "ITZY",
+    "gender": "female",
+    "name": "예지"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069732558/Lia.webp",
+    "group": "ITZY",
+    "gender": "female",
+    "name": "리아"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069748342/Yuna.webp",
+    "group": "ITZY",
+    "gender": "female",
+    "name": "유나"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069764759/Chaeryeong.webp",
+    "group": "ITZY",
+    "gender": "female",
+    "name": "채령"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069779811/KimGa-eul.webp",
+    "group": "IVE",
+    "gender": "female",
+    "name": "가을"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759069798589/JangWon-young.webp",
+    "group": "IVE",
+    "gender": "female",
+    "name": "장원영"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071319397/anYuJin.webp",
+    "group": "IVE",
+    "gender": "female",
+    "name": "안유진"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071386456/KimJi-won.webp",
+    "group": "IVE",
+    "gender": "female",
+    "name": "리즈"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071401808/NewJeans-MinJi.png",
+    "group": "NewJeans",
+    "gender": "female",
+    "name": "민지"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071418701/aespa-Karina.png",
+    "group": "aespa",
+    "gender": "female",
+    "name": "카리나"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071432750/aespa-Winter.png",
+    "group": "aespa",
+    "gender": "female",
+    "name": "윈터"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071452515/QWER-Hina.png",
+    "group": "QWER",
+    "gender": "female",
+    "name": "히나"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071506028/LeeHyun-seo.webp",
+    "group": "IVE",
+    "gender": "female",
+    "name": "이서"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071552039/NewJeans-Hanni.png",
+    "group": "NewJeans",
+    "gender": "female",
+    "name": "하니"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071569747/QWER-Siyeon.png",
+    "group": "QWER",
+    "gender": "female",
+    "name": "시연"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071589998/Girls'-Generation-Taeyeon.png",
+    "group": "소녀시대",
+    "gender": "female",
+    "name": "태연"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071604643/NewJeans-Haerin.png",
+    "group": "NewJeans",
+    "gender": "female",
+    "name": "해린"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071623135/NewJeans-Hyein.png",
+    "group": "NewJeans",
+    "gender": "female",
+    "name": "혜인"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071642510/(G)I-DLE-Yuqi.png",
+    "group": "I-DLE",
+    "gender": "female",
+    "name": "우기"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071737900/(G)I-DLE-Shuhua.png",
+    "group": "I-DLE",
+    "gender": "female",
+    "name": "슈화"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071770629/(G)I-DLE-Minnie.png",
+    "group": "I-DLE",
+    "gender": "female",
+    "name": "민니"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071788222/Red-Velvet-Joy.png",
+    "group": "Red Velvet",
+    "gender": "female",
+    "name": "조이"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071805746/Red-Velvet-Seulgi.png",
+    "group": "Red Velvet",
+    "gender": "female",
+    "name": "슬기"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071831500/Red-Velvet-Yeri.png",
+    "group": "Red Velvet",
+    "gender": "female",
+    "name": "예리"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071845805/Red-Velvet-Wendy.png",
+    "group": "Red Velvet",
+    "gender": "female",
+    "name": "웬디"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071873926/NewJeans-Danielle.png",
+    "group": "NewJeans",
+    "gender": "female",
+    "name": "다니엘"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071899402/aespa-Giselle.png",
+    "group": "aespa",
+    "gender": "female",
+    "name": "지젤"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071917080/aespa-NingNing.png",
+    "group": "aespa",
+    "gender": "female",
+    "name": "닝닝"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071951803/(G)I-DLE-Miyeon.png",
+    "group": "I-DLE",
+    "gender": "female",
+    "name": "미연"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071967895/(G)I-DLE-Soyeon.png",
+    "group": "I-DLE",
+    "gender": "female",
+    "name": "소연"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759071979213/KISS-OF-LIFE-Natty.png",
+    "group": "KISS-OF-LIFE",
+    "gender": "female",
+    "name": "나띠"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759072000376/Red-Velvet-Irene.png",
+    "group": "Red Velvet",
+    "gender": "female",
+    "name": "아이린"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759108888535/BTS-V.webp",
+    "group": "BTS",
+    "gender": "male",
+    "name": "V"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759108913868/BTS-Jin.webp",
+    "group": "BTS",
+    "gender": "male",
+    "name": "JIN"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759108931578/member-jhope.jpg",
+    "group": "BTS",
+    "gender": "male",
+    "name": "J-HOPE"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759108944128/member-suga.jpg",
+    "group": "BTS",
+    "gender": "male",
+    "name": "SUGA"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759108956143/member-jimin.jpg",
+    "group": "BTS",
+    "gender": "male",
+    "name": "JIMIN"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109013029/member-rm.jpg",
+    "group": "BTS",
+    "gender": "male",
+    "name": "RM"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109028971/member-jungkook.jpg",
+    "group": "BTS",
+    "gender": "male",
+    "name": "JungKook"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109048184/Day6-Sungjin.png",
+    "group": "DAY6",
+    "gender": "male",
+    "name": "성진"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109061256/Day6-Dowoon.png",
+    "group": "DAY6",
+    "gender": "male",
+    "name": "도운"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109080937/enhypen-jungwon.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "양정원"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109116135/enhypen-jongseong.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "제이"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109135339/enhypen-jaeyun.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "제이크"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109146834/TWS-Dohoon.png",
+    "group": "TWS",
+    "gender": "male",
+    "name": "도훈"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109190291/TWS-Youngjae.png",
+    "group": "TWS",
+    "gender": "male",
+    "name": "영재"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109203929/TWS-Kyungmin.png",
+    "group": "TWS",
+    "gender": "male",
+    "name": "경민"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109218435/EXO-Chen.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "첸"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109233129/EXO-Kai.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "카이"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109244563/EXO-D.O..png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "디오"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109311854/Day6-YoungK.png",
+    "group": "DAY6",
+    "gender": "male",
+    "name": "Young K"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109329642/Day6-Wonpil.png",
+    "group": "DAY6",
+    "gender": "male",
+    "name": "원필"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109351842/enhypen-heeseung.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "희승"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109379435/enhypen-sunghoon.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "성훈"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109408995/enhypen-sunoo.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "선우"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109423927/enhypen-riki.webp",
+    "group": "ENHYPEN",
+    "gender": "male",
+    "name": "니키"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109542682/TWS-Shinyu.png",
+    "group": "TWS",
+    "gender": "male",
+    "name": "신유"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109566428/TWS-Hanjin.png",
+    "group": "TWS",
+    "gender": "male",
+    "name": "한진"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109581056/TWS-Jihoon.png",
+    "group": "TWS",
+    "gender": "male",
+    "name": "지훈"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109591840/ASTRO-Cha-Eunwoo.png",
+    "group": "ASTRO",
+    "gender": "male",
+    "name": "차은우"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109611622/RIIZE-Wonbin.png",
+    "group": "RIIZE",
+    "gender": "male",
+    "name": "원빈"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109620447/EXO-Suho.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "수호"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109630303/EXO-Baekhyun.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "백현"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109640430/EXO-Chanyeol.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "찬열"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109650932/EXO-Xiumin.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "시우민"
+  },
+  {
+    "profilePicture": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Fandom-K/idol/1759109660425/EXO-Sehun.png",
+    "group": "EXO",
+    "gender": "male",
+    "name": "세훈"
+  }
+]

@@ -1,0 +1,203 @@
+@use '/src/assets/styles/variables' as *;
+@use '/src/assets/styles/font' as *;
+
+// Variables
+$whiteOpa8: rgba(255, 255, 255, 0.87);
+$whiteOpa6: rgba(255, 255, 255, 0.6);
+$whiteOpa2: rgba(255, 255, 255, 0.2);
+
+// Mixins
+@mixin buttonBase($width, $height) {
+  width: $width;
+  height: $height;
+  border-radius: 3px;
+}
+
+// ================== Components ==================
+.inner {
+  width: 1200px;
+  margin: 80px auto;
+}
+.chartWarp {
+  .titWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    .tit {
+      @include txt_style(24px, B);
+      line-height: 26px;
+    }
+  }
+
+  .chartBtns {
+    display: flex;
+    align-items: center;
+
+    .btnTab {
+      @include buttonBase(50%, 42px);
+      @include txt_style(14px, R);
+      line-height: 18px;
+      border-radius: 0;
+
+      &.active {
+        border-bottom: 1px solid $white;
+        background-color: $whiteOpa2;
+      }
+    }
+  }
+}
+
+.chartList {
+  display: flex;
+  gap: 0 24px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 16px;
+
+  li {
+    width: calc((100% - 24px) / 2);
+    padding: 8px 0;
+    border-top: 1px solid $whiteOpa2;
+
+    &:first-child,
+    &:nth-child(2) {
+      border-top: none;
+    }
+    .idolCardChart {
+      width: 100%;
+    }
+  }
+}
+
+.btnChartMore {
+  max-width: 326px;
+  width: 100%;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto 0;
+  background-color: $whiteOpa2;
+  border: 1px solid rgba(241, 238, 249, 0.8);
+}
+.creditConfirm {
+  @include txt_style(16px, M);
+  position: relative;
+  padding-top: 150px;
+  text-align: center;
+  span {
+    color: $coral;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 183px;
+    height: 140%;
+    background: url(../../../assets/image/icons/ic_credit_lg.svg) no-repeat 0
+      0 / contain;
+  }
+}
+
+.modalVote {
+  .modalHeader {
+    margin-bottom: 11px;
+  }
+  .modalContent {
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      cursor: pointer;
+      background-color: $whiteOpa2;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: $whiteOpa2;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  }
+
+  .chartList {
+    margin-top: 0;
+    li {
+      position: relative;
+      width: 100%;
+      &:nth-child(2) {
+        border-top: 1px solid $whiteOpa2;
+      }
+    }
+  }
+}
+
+/* Tablet (1199px 이하) */
+@media (max-width: 1199px) {
+  .inner {
+    width: 100%;
+  }
+  .chartWarp {
+    padding: 0 24px;
+  }
+  .chartList {
+    li {
+      width: 100%;
+      &:nth-child(2) {
+        border-top: 1px solid $whiteOpa2;
+      }
+    }
+  }
+}
+/* mobile (525px 이하) */
+@media (max-width: 525px) {
+  .modalVote {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background:
+      url(../../../assets/image/common/bg_top.svg) no-repeat 0 0 / 1920px auto,
+      $black1;
+    border-radius: 0;
+    .modal {
+      &Header {
+        position: relative;
+        padding: 20px 0 15px;
+        margin-bottom: 0;
+        height: 59px;
+        justify-content: center;
+      }
+      &Title {
+        @include txt_style(14px, M);
+      }
+      &CloseBtn {
+        position: absolute;
+        left: 24px;
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+      &Content {
+        height: calc(100% - 44px);
+        padding: 0 24px 106px;
+      }
+      &Footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 106px;
+        padding: 16px 24px 14px;
+        background: rgba(2, 0, 14, 0.8);
+      }
+    }
+    .btnVote {
+      width: 100%;
+    }
+  }
+}

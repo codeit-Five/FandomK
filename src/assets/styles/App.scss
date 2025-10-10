@@ -4,6 +4,53 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'PretendardM', sans-serif;
   box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+  font-family: 'PretendardM', sans-serif;
+}
+body {
+  background:
+    url(../image/common/bg_top.svg) no-repeat 0 0 / 1920px auto,
+    $black1;
+}
+p,
+div,
+button,
+input,
+select,
+option,
+optgroup,
+textarea {
+  color: $white;
+  border-radius: 0;
+}
+a {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+i,
+em {
+  font-style: normal;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+button {
+  display: inline-block;
+  border: 0;
+  background-color: transparent;
+}
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  vertical-align: middle;
+  cursor: pointer;
+  appearance: button;
+  -webkit-appearance: button;
 }

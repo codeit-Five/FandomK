@@ -1,0 +1,243 @@
+@use '../../assets/styles/variables' as *;
+
+.idolCard {
+  // 이미지 컨테이너 공통
+  &ImgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #F96868;
+    border-radius: 50%;
+  }
+
+  // 이미지 박스 공통
+  &ImgBox {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+
+    * {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+    }
+  }
+
+  // 선택 상태 공통
+  &Selected {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(271deg, #F96E68 -9.84%, #FE578F 107.18%);
+    opacity: 0.5;
+    border-radius: 50%;
+  }
+
+  // 공통 베이스 스타일
+  &Base {
+    display: flex;
+    align-items: center;
+
+    .rank {
+      margin: 0 12px;
+      color: $coral;
+      opacity: 0.6;
+    }
+
+    .idolCardProfile {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+
+      .profileBox {
+        display: flex;
+        gap: 5px;
+      }
+    }
+
+    .voteCount {
+      color: rgba(255, 255, 255, 0.60);
+      text-align: right;
+    }
+  }
+
+  // 마이페이지 베이스 스타일
+  &BaseMyPage {
+    @extend .idolCardBase;
+    gap: 8px;
+    flex-direction: column;
+
+    .idolCardProfile {
+      gap: 2px;
+      flex-direction: column;
+
+      * {
+        align-content: center;
+      }
+
+      .idolName {
+        @include txt_style(16px, B);
+        color: #f4efef;
+      }
+
+      .groupName {
+        @include txt_style(14px, R);
+        color: rgba(255, 255, 255, 0.60);
+      }
+    }
+  }
+
+  // 차트
+  &Chart {
+    @extend .idolCardBase;
+    width: 588px;
+    height: 70px;
+
+    .idolCardImgContainer {
+      width: 70px;
+      height: 70px;
+
+      .idolCardImgBox {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .rank {
+      @include txt_style(16px, R);
+    }
+
+    .idolCardProfile {
+      @include txt_style(16px, M);
+    }
+
+    .voteCount {
+      @include txt_style(16px, R);
+      margin-left: auto;
+    }
+
+    // 차트 투표하기 모달
+    &.modal {
+      width: auto;
+
+      .idolCardSelected img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .rank {
+        @include txt_style(14px, R);
+      }
+
+      .idolCardProfile {
+        @include txt_style(14px, M);
+        gap: 4px;
+        align-items: flex-start;
+        flex-direction: column;
+
+        .voteCount {
+          @include txt_style(14px, R);
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  // 내가 관심있는 아이돌
+  // 밑에 있는 아이돌 카드랑 사이즈 같게 수정 했어요 ! - 재승
+  
+  &Interest {
+    @extend .idolCardBaseMyPage;
+    width: 128px; 
+    height: 183px;
+
+    .idolCardImgContainer {
+      position: relative;
+      width: 128px; 
+      height: 128px; 
+      border-spacing: 1.295px;
+
+      .idolCardImgBox {
+        width: 115px; 
+        height: 115px; 
+      }
+
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        width: 31.429px;
+        height: 31.429px;
+        align-items: center;
+        justify-content: center;
+        background: #FFF;
+        border: 2.871px solid #02000E;
+        border-radius: 31.429px;
+
+        img {
+          width: 11.429px;
+          height: 11.429px;
+        }
+      }
+    }
+
+    .idolCardProfile {
+      width: 128px;
+
+      .idolName {
+        width: 100%;
+        height: 27px;
+      }
+
+      .groupName {
+        width: 104px;
+        height: 18px;
+      }
+    }
+  }
+
+  // 관심 있는 아이돌 추가
+  &Recommend {
+    @extend .idolCardBaseMyPage;
+    width: 128px;
+    height: 183px;
+
+    .idolCardImgContainer {
+      width: 128px;
+      height: 128px;
+      border-spacing: 1.295px;
+
+      .idolCardImgBox {
+        width: 115px;
+        height: 115px;
+
+        .idolCardSelected img {
+          width: 35.121px;
+        }
+      }
+    }
+
+    .idolCardProfile {
+      width: 128px;
+
+      .idolName {
+        width: 100%;
+        height: 27px;
+      }
+
+      .groupName {
+        width: 104px;
+        height: 18px;
+      }
+    }
+  }
+}

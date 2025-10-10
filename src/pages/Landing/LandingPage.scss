@@ -1,0 +1,144 @@
+.landing, .landing-section-2, .landing-section-3, .landing-section-4 {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #02000E;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.main-bg {
+  background-size: contain;
+}
+
+.bg-section-2, .bg-section-3, .bg-section-4 {
+  background-size: 100% 300%;
+}
+
+.bg-section-2 {
+  background-position-y: 0%;
+}
+
+.bg-section-3 {
+  background-position-y: 50%;
+}
+
+.bg-section-4 {
+  background-position-y: 100%;
+}
+
+.background-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 80%);
+  z-index: 2;
+}
+
+.overlay, .overlay-2, .overlay-3, .overlay-4 {
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.landing {
+  padding-bottom: 0; 
+}
+
+.overlay-main {
+  justify-content: space-between; 
+  height: 100vh;
+  padding: 80px 20px;
+}
+
+.landing-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; 
+}
+
+/* 텍스트 */
+.subtitle {
+  font-size: 24px;
+  line-height: 1.5;
+  margin-top: 0; 
+}
+
+.highlight {
+  color: #ff4f85;
+}
+
+/* 로고 */
+.logo {
+  width: 380px;
+  cursor: pointer;
+}
+
+.button-container {
+  margin-bottom: 50px; 
+}
+
+/* 버튼 */
+.start-btn {
+  background: linear-gradient(90deg, #ff4f85, #ff6fb1);
+  border: none;
+  padding: 14px 120px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.slogan {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff4f85;
+  margin-bottom: 16px;
+}
+
+.slogan-subtitle {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+
+.landing-image {
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid white;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+.bg-section-2::after,
+.bg-section-3::after,
+.bg-section-4::after {
+  background: none;
+}
