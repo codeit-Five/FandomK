@@ -54,12 +54,12 @@
     .creditBox {
       @include txt_style(20px, B);
       display: flex;
-      gap: 4px;
       align-items: center;
       justify-content: center;
+      flex-direction: row;
 
       img {
-        width: 16px;
+        width: 24px;
       }
     }
   }

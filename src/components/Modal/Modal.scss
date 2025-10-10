@@ -39,6 +39,12 @@
     @extend .modalBaseShadow;
     width: 327px;
     height: 372px;
+
+    .modalContent {
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+    }
   }
 
   // 후원하기
@@ -46,6 +52,11 @@
     @extend .modalBaseShadow;
     width: 327px;
     height: 509px;
+    transition: height 0.2s ease;
+
+    &:has(.overCredit) {
+      height: 529px;
+    }
   }
 
   // 차트 투표

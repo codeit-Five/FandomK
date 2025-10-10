@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { apiCall } from '../../../apis/baseApi';
 import getCharts from '../../../apis/chartsApi';
 import postVotes from '../../../apis/votesApi';
@@ -10,13 +9,6 @@ import Modal from '../../../components/Modal/Modal';
 import IdolCard from '../../../components/IdolCard/IdolCard';
 import OptionCard from '../../../components/OptionCard/OptionCard';
 import './Chart.scss';
-
-const CreditBtn = styled.button.attrs({ className: 'btnCredit' })`
-  display: inline-block;
-  padding: 3px 5px;
-  margin: 0 3px;
-  border: 1px solid #fff;
-`;
 
 const Chart = () => {
   const VOTE_CREDIT = 1000;
@@ -29,7 +21,7 @@ const Chart = () => {
 
   const [isChartOpen, setIsChartOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const { credit, increaseCredit, decreaseCredit } = useCredit(state => state);
+  const { credit, decreaseCredit } = useCredit(state => state);
 
   // 해상도별 페이지
   function setPaseSize() {
@@ -113,33 +105,8 @@ const Chart = () => {
     loadIdols(gender, null, setPaseSize());
   }, [gender, width]);
 
-  // 임시 크래딧 추가
-  const handleCredit = e => {
-    const value = Number(e.target.innerText);
-    increaseCredit(value);
-  };
-
   return (
     <section className="chartWarp inner">
-      <div
-        style={{
-          marginBottom: '25px',
-        }}
-      >
-        <div>
-          임시 크레딧 :
-          <CreditBtn className="btnCredit" onClick={e => handleCredit(e)}>
-            100
-          </CreditBtn>
-          <CreditBtn className="btnCredit" onClick={e => handleCredit(e)}>
-            500
-          </CreditBtn>
-          <CreditBtn className="btnCredit" onClick={e => handleCredit(e)}>
-            1000
-          </CreditBtn>
-        </div>
-        <div>현재 크래딧 : {credit}</div>
-      </div>
       <div className="titWrap">
         <h1 className="tit">이달의 차트</h1>
         <Button variant="voteChart" onClick={handleOpen} />

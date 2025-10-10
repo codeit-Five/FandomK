@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 const useCredit = create(set => ({
-  credit: 0,
+  credit: 10000,
   increaseCredit: myCredit =>
     set(state => ({ credit: state.credit + myCredit })),
   decreaseCredit: myCredit =>
