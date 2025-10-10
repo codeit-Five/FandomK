@@ -152,20 +152,22 @@
   }
 
   // 내가 관심있는 아이돌
+  // 밑에 있는 아이돌 카드랑 사이즈 같게 수정 했어요 ! - 재승
+  
   &Interest {
     @extend .idolCardBaseMyPage;
-    width: 100px;
-    height: 153px;
+    width: 128px; 
+    height: 183px;
 
     .idolCardImgContainer {
       position: relative;
-      width: 100px;
-      height: 100px;
-      border-spacing: 1.436px;
+      width: 128px; 
+      height: 128px; 
+      border-spacing: 1.295px;
 
       .idolCardImgBox {
-        width: 86.143px;
-        height: 86.143px;
+        width: 115px; 
+        height: 115px; 
       }
 
       button {
@@ -192,13 +194,13 @@
       width: 128px;
 
       .idolName {
-        width: 98px;
-        height: 26px;
+        width: 100%;
+        height: 27px;
       }
 
       .groupName {
-        width: 98px;
-        height: 17px;
+        width: 104px;
+        height: 18px;
       }
     }
   }

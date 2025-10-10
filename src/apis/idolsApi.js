@@ -26,3 +26,4 @@ export async function deleteIdols(id) {
   const res = await api.delete(`/idols/${id}`);
   return res.data;
 }
+

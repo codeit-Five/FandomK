@@ -1,0 +1,83 @@
+@use '../../assets/styles/variables' as *;
+
+.myPageContainer {
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 60px 20px;
+
+  .sectionTitle {
+    @include txt_style(1.5rem, SB);
+    color: $white;
+    margin-bottom: 24px;
+  }
+
+  .idolList {
+    display: grid;
+    gap: 40px 20px;
+  }
+
+  .myIdolsSection {
+    margin-bottom: 60px;
+
+    .interestList {
+      grid-template-columns: repeat(auto-fill, 128px); // 카드 너비 수정
+      gap: 40px 20px; 
+    }
+  }
+
+  .recommendIdolsSection {
+    .recommendIdolsContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+
+      .navButton {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        img {
+          width: 24px;
+          height: 24px;
+        }
+
+        &.nextButton img {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .recommendList {
+      width: 1164px;
+      grid-template-columns: repeat(8, 128px);
+      grid-template-rows: repeat(2, auto);
+    }
+
+    .message {
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 40px;
+
+      &.error {
+        color: $coral;
+      }
+    }
+
+    .addButtonContainer {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+  }
+}
