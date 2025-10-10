@@ -61,3 +61,54 @@
   }
 
 }
+
+@media (max-width: 1199px) {
+  .donate {
+    &Section {
+      width: 100%;
+      gap: 24px;
+      padding: 0 24px;
+
+      &Title {
+        @include txt_style(20px, B);
+      }
+    }
+
+    &List {
+      width: 100%;
+      gap: 16px;
+      overflow-x: auto;
+      -ms-overflow-style: none; 
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      * {
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+/* mobile (525px 이하) */
+@media (max-width: 525px) {
+  .donate {
+    &Section {
+      gap: 16px;
+
+      &Title {
+        @include txt_style(16px, B);
+      }
+    }
+
+    &Box {
+      height: 303px;
+    }
+
+    &List {
+      width: 100%;
+      gap: 16px;
+    }
+  }
+}
