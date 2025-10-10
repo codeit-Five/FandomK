@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000;
+  background-color: #02000E;
   position: relative;
   overflow: hidden;
 }
@@ -17,8 +17,27 @@
   bottom: 0;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
   z-index: 1;
+}
+
+.main-bg {
+  background-size: contain;
+}
+
+.bg-section-2, .bg-section-3, .bg-section-4 {
+  background-size: 100% 300%;
+}
+
+.bg-section-2 {
+  background-position-y: 0%;
+}
+
+.bg-section-3 {
+  background-position-y: 50%;
+}
+
+.bg-section-4 {
+  background-position-y: 100%;
 }
 
 .background-image::after {
@@ -65,7 +84,7 @@
 
 /* 텍스트 */
 .subtitle {
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.5;
   margin-top: 0; 
 }
@@ -76,7 +95,7 @@
 
 /* 로고 */
 .logo {
-  width: 280px;
+  width: 380px;
   cursor: pointer;
 }
 
@@ -113,4 +132,13 @@
 .landing-image {
   width: 100%;
   max-width: 300px;
+  border: 2px solid white;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+.bg-section-2::after,
+.bg-section-3::after,
+.bg-section-4::after {
+  background: none;
 }

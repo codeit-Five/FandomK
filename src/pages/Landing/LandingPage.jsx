@@ -3,11 +3,9 @@ import './LandingPage.scss';
 import logo from '../../assets/image/logo/fandom-klogo.svg';
 import bg from '../../assets/image/landing-bg.png';
 import landing1_1_img from '../../assets/image/landing-1-1.png';
-import landing1_2_bg from '../../assets/image/landing1-2.jpg';
 import landing2_1_img from '../../assets/image/landing2-1.png';
-import landing2_2_bg from '../../assets/image/landing2-2.jpg';
 import landing3_1_img from '../../assets/image/landing3-1.png';
-import landing3_2_bg from '../../assets/image/landing3-2.jpg';
+import newBg from '../../assets/image/landing-bottom.png';
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ function LandingPage() {
   return (
     <>
       <div className="landing">
-        <div className="background-image" style={{ backgroundImage: `url(${bg})` }}></div>
+        <div className="background-image main-bg" style={{ backgroundImage: `url(${bg})` }}></div>
         <div className="overlay overlay-main">
           <div className="landing-header">
             <p className="subtitle">
@@ -36,7 +34,10 @@ function LandingPage() {
         </div>
       </div>
       <div className="landing-section-2">
-        <div className="background-image" style={{ backgroundImage: `url(${landing1_2_bg})` }}></div>
+        <div
+          className="background-image bg-section-2"
+          style={{ backgroundImage: `url(${newBg})` }}
+        ></div>
         <div className="overlay-2">
           <p className="slogan">후원하기</p>
           <p className="slogan-subtitle">
@@ -48,7 +49,10 @@ function LandingPage() {
         </div>
       </div>
       <div className="landing-section-3">
-        <div className="background-image" style={{ backgroundImage: `url(${landing2_2_bg})` }}></div>
+        <div
+          className="background-image bg-section-3"
+          style={{ backgroundImage: `url(${newBg})` }}
+        ></div>
         <div className="overlay-3">
           <p className="slogan">이달의 아티스트</p>
           <p className="slogan-subtitle">
@@ -60,7 +64,10 @@ function LandingPage() {
         </div>
       </div>
       <div className="landing-section-4">
-        <div className="background-image" style={{ backgroundImage: `url(${landing3_2_bg})` }}></div>
+        <div
+          className="background-image bg-section-4"
+          style={{ backgroundImage: `url(${newBg})` }}
+        ></div>
         <div className="overlay-4">
           <p className="slogan">나만의 아티스트</p>
           <p className="slogan-subtitle">
