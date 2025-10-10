@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import Donate from '../Donate/Donate';
 import { apiCall } from '../../../apis/baseApi';
 import { getDonations } from '../../../apis/donationsApi';
@@ -9,7 +11,78 @@ import arrowRight from '../../../assets/image/icons/ic_arrow_right.svg';
 
 // 데스크톱/모바일 환경에 따른 데이터 요청 개수 정의
 const DESKTOP_PAGE_SIZE = 4;
-const MOBILE_PAGE_SIZE = 6;
+const MOBILE_PAGE_SIZE = 8;
+
+// 스켈레톤 색상 정의
+const BASE_COLOR = '#333';
+const HIGHLIGHT_COLOR = '#444';
+
+// Donate 컴포넌트의 형태를 모방한 스켈레톤 컴포넌트 정의
+const SkeletonItem = ({ isMobile }) => {
+  // 모바일/데스크톱 크기 반영
+  const fullHeight = isMobile ? '303px' : '402px';
+  const imageHeight = isMobile ? 206 : 293;
+
+  return (
+    <div
+      className="donateItem skeleton"
+      style={{
+        width: '100%',
+        display: 'block',
+        position: 'relative',
+        height: fullHeight,
+      }}
+    >
+      {/* 1. 이미지 영역: isMobile에 따라 높이 변경 */}
+      <Skeleton
+        height={imageHeight}
+        borderRadius={8}
+        style={{ marginBottom: '12px' }}
+        baseColor={BASE_COLOR}
+        highlightColor={HIGHLIGHT_COLOR}
+      />
+
+      {/* 2. 제목/부제목 영역 (텍스트 라인) */}
+      <Skeleton
+        width="50%"
+        baseColor={BASE_COLOR}
+        highlightColor={HIGHLIGHT_COLOR}
+        style={{ marginBottom: '8px' }}
+      />
+      <Skeleton
+        width="60%"
+        style={{ marginBottom: '24px' }}
+        baseColor={BASE_COLOR}
+        highlightColor={HIGHLIGHT_COLOR}
+      />
+
+      {/* 3. 크레딧/남은 일수 영역 */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        {/* 크레딧 영역 (좌측) */}
+        <Skeleton
+          width="50px" // 너비 설정
+          height={12}
+          baseColor={BASE_COLOR}
+          highlightColor={HIGHLIGHT_COLOR}
+        />
+
+        {/* 남은 일수 영역 (우측) */}
+        <Skeleton
+          width="45px" // 너비 설정
+          height={12}
+          baseColor={BASE_COLOR}
+          highlightColor={HIGHLIGHT_COLOR}
+        />
+      </div>
+    </div>
+  );
+};
 
 const DonateSection = () => {
   const didMountRef = useRef(false);
@@ -32,6 +105,7 @@ const DonateSection = () => {
     // ref를 사용해서 중복 호출 방지
     if (isLoadingRef.current || (isMobile && !hasMore)) return;
 
+    isLoadingRef.current = true;
     setIsLoading(true);
 
     const result = await apiCall(getDonations, pageSize, cursor, null);
@@ -190,6 +264,77 @@ const DonateSection = () => {
     };
   }, [isMobile, hasMore, loadDonation]);
 
+  const getRenderedList = () => {
+    // 1. 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
+    if (isLoading && donateList.length === 0) {
+      return Array(pageSize)
+        .fill(0)
+        .map((_, index) => (
+          <div className="donateContainer" key={`skeleton${index}`}>
+            <SkeletonItem isMobile={isMobile} />
+          </div>
+        ));
+    }
+
+    // 2. 모바일 환경일 때 (전체 리스트, 무한 스크롤)
+    if (isMobile) {
+      return donateList.map(donation => (
+        <Donate
+          key={donation.id}
+          donation={donation}
+          onDonateSuccess={refreshDonations}
+        />
+      ));
+    }
+
+    // 3. 데스크톱 환경일 때 (페이지네이션된 리스트)
+    return currentItems.map(donation => (
+      <Donate
+        key={donation.id}
+        donation={donation}
+        onDonateSuccess={refreshDonations}
+      />
+    ));
+  };
+
+  const getRenderedNextBtn = () => {
+    // isMobile일 경우 아무것도 렌더링하지 않음
+    if (isMobile) {
+      return null;
+    }
+
+    // 1. 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
+    if (isLoading && donateList.length === 0) {
+      return (
+        <div className="donateNavBtn skeleton-btn">
+          <Skeleton
+            width={40}
+            height={78.333}
+            borderRadius={6.667}
+            baseColor={BASE_COLOR}
+            highlightColor={HIGHLIGHT_COLOR}
+          />
+        </div>
+      );
+    }
+
+    // 2. 마지막 페이지가 아닐 때 (다음 버튼 표시)
+    if (!isLastPage) {
+      return (
+        <button
+          className="donateNavBtn"
+          onClick={handleNext}
+          disabled={isLoading}
+        >
+          <img src={arrowRight} alt="다음" />
+        </button>
+      );
+    }
+
+    // 3. 그 외의 경우 (마지막 페이지일 때, 아무것도 렌더링하지 않음)
+    return null;
+  };
+
   return (
     <section className="donateSection">
       <h2 className="donateSectionTitle">후원을 기다리는 조공</h2>
@@ -203,33 +348,8 @@ const DonateSection = () => {
             <img src={arrowLeft} alt="이전" />
           </button>
         )}
-        <div className="donateList">
-          {isMobile // 모바일: 전체 리스트 표시 (가로 스크롤)
-            ? donateList.map(donation => (
-                <Donate
-                  key={donation.id}
-                  donation={donation}
-                  onDonateSuccess={refreshDonations}
-                />
-              ))
-            : // 데스크톱: 페이지네이션된 리스트
-              currentItems.map(donation => (
-                <Donate
-                  key={donation.id}
-                  donation={donation}
-                  onDonateSuccess={refreshDonations}
-                />
-              ))}
-        </div>
-        {!isMobile && !isLastPage && (
-          <button
-            className="donateNavBtn"
-            onClick={handleNext}
-            disabled={isLoading}
-          >
-            <img src={arrowRight} alt="다음" />
-          </button>
-        )}
+        <div className="donateList">{getRenderedList()}</div>
+        {getRenderedNextBtn()}
       </div>
     </section>
   );
