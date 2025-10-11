@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Donate from '../Donate/Donate';
@@ -12,6 +13,10 @@ import arrowRight from '../../../assets/image/icons/ic_arrow_right.svg';
 // 데스크톱/모바일 환경에 따른 데이터 요청 개수 정의
 const DESKTOP_PAGE_SIZE = 4;
 const MOBILE_PAGE_SIZE = 8;
+
+// 데스크톱/모바일 환경에 따른 Donate 컴포넌트의 너비 정의
+const DESKTOP_DONATE_SIZE = 282;
+const MOBILE_DONATE_SIZE = 158;
 
 // 스켈레톤 색상 정의
 const BASE_COLOR = '#333';
@@ -66,7 +71,7 @@ const SkeletonItem = ({ isMobile }) => {
       >
         {/* 크레딧 영역 (좌측) */}
         <Skeleton
-          width="50px" // 너비 설정
+          width="50px"
           height={12}
           baseColor={BASE_COLOR}
           highlightColor={HIGHLIGHT_COLOR}
@@ -74,7 +79,7 @@ const SkeletonItem = ({ isMobile }) => {
 
         {/* 남은 일수 영역 (우측) */}
         <Skeleton
-          width="45px" // 너비 설정
+          width="45px"
           height={12}
           baseColor={BASE_COLOR}
           highlightColor={HIGHLIGHT_COLOR}
@@ -90,15 +95,68 @@ const DonateSection = () => {
   const [donateList, setDonateList] = useState([]);
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { width } = useWindowSize();
 
   // 반응형: 1200px 미만에서는 모바일로 간주
   const isMobile = width < 1200;
 
+  // 표시할 스켈레톤 컴포넌트의 갯수 확인
+  const getSkeletonSize = () => {
+    if (width < 525) return Math.round(width / MOBILE_DONATE_SIZE);
+    if (width < 1200) return Math.round(width / DESKTOP_DONATE_SIZE);
+    return DESKTOP_PAGE_SIZE;
+  };
+
   // 모바일/데스크톱 환경에 따라 데이터 요청 개수(size) 결정
   const pageSize = isMobile ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
+
+  // Embla Carousel 설정
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    dragFree: isMobile,
+    loop: false,
+    skipSnaps: false,
+    watchDrag: isMobile, // 데스크톱에서는 드래그 비활성화
+  });
+
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  // 데스크톱용 페이지 그룹 생성 (4개씩 묶기)
+  const getPageGroups = useCallback(() => {
+    if (isMobile) {
+      return donateList.map(item => [item]);
+    }
+
+    const groups = [];
+    for (let i = 0; i < donateList.length; i += DESKTOP_PAGE_SIZE) {
+      groups.push(donateList.slice(i, i + DESKTOP_PAGE_SIZE));
+    }
+    return groups;
+  }, [donateList, isMobile]);
+
+  // Embla의 스크롤 버튼 상태 업데이트
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return undefined;
+
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    emblaApi.on('init', onSelect); // init 이벤트 추가
+
+    return () => {
+      emblaApi.off('select', onSelect);
+      emblaApi.off('reInit', onSelect);
+      emblaApi.off('init', onSelect);
+    };
+  }, [emblaApi, onSelect]);
 
   const loadDonation = useCallback(async () => {
     // 현재 로딩 중이거나, 모바일 환경에서 더 이상 데이터가 없다면 즉시 종료
@@ -145,50 +203,43 @@ const DonateSection = () => {
       setDonateList(result.list);
       setCursor(result.nextCursor);
       setHasMore(result.nextCursor !== null);
-      setCurrentPage(0); // 첫 페이지로 이동
+
+      // Embla를 첫 슬라이드로 이동
+      if (emblaApi) {
+        emblaApi.scrollTo(0);
+      }
     }
 
     isLoadingRef.current = false;
     setIsLoading(false);
   };
 
-  // 다음 페이지로 이동 (데스크톱 전용)
-  const handleNext = async () => {
-    if (isLoadingRef.current || isMobile) return;
+  // 다음 슬라이드로 이동
+  const scrollNext = useCallback(async () => {
+    if (!emblaApi) return;
 
-    const nextPage = currentPage + 1;
-    const nextStartIndex = nextPage * DESKTOP_PAGE_SIZE;
+    const canScroll = emblaApi.canScrollNext();
 
-    // 다음 페이지의 데이터가 이미 로드되어 있는 경우
-    if (nextStartIndex < donateList.length) {
-      setCurrentPage(nextPage);
+    // 스크롤 가능하면 이동
+    if (canScroll) {
+      emblaApi.scrollNext();
     }
-    // 다음 페이지의 데이터가 없지만 API에서 더 불러올 수 있는 경우
-    else if (hasMore) {
+    // 데스크톱에서 더 이상 스크롤할 수 없지만 추가 데이터가 있으면 로드
+    else if (!isMobile && hasMore) {
       await loadDonation();
-      setCurrentPage(nextPage);
+      // 데이터 로드 후 다음 슬라이드로 이동
+      setTimeout(() => {
+        if (emblaApi) {
+          emblaApi.scrollNext();
+        }
+      }, 100);
     }
-  };
+  }, [emblaApi, isMobile, hasMore, loadDonation]);
 
-  // 이전 페이지로 이동 (데스크톱 전용)
-  const handlePrev = () => {
-    if (isLoadingRef.current || isMobile) return;
-
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  // 현재 페이지에 보여줄 아이템들 (데스크톱 전용)
-  const startIndex = currentPage * DESKTOP_PAGE_SIZE;
-  const endIndex = startIndex + DESKTOP_PAGE_SIZE;
-  const currentItems = donateList.slice(startIndex, endIndex);
-
-  // 첫 페이지인지 확인 (데스크톱 전용)
-  const isFirstPage = currentPage === 0;
-
-  // 마지막 페이지인지 확인 (데스크톱 전용)
-  const isLastPage = endIndex >= donateList.length && !hasMore;
+  // 이전 슬라이드로 이동
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
   // 초기 로드 및 화면 크기 변경 시 처리
   useEffect(() => {
@@ -206,7 +257,6 @@ const DonateSection = () => {
         setDonateList([]);
         setCursor(null);
         setHasMore(true);
-        setCurrentPage(0);
 
         // 로딩 상태 시작
         isLoadingRef.current = true;
@@ -234,76 +284,81 @@ const DonateSection = () => {
 
   // 모바일 스크롤 감지 (무한 스크롤)
   useEffect(() => {
-    if (!isMobile) return () => {};
-
-    const donateListBox = document.querySelector('.donateList');
-    if (!donateListBox) return () => {};
+    if (!isMobile || !emblaApi) return undefined;
 
     const handleScroll = () => {
-      // hasMore가 false거나 로딩 중이면 스크롤 이벤트 무시
       if (!hasMore || isLoadingRef.current) return;
 
-      // 스크롤이 리스트의 끝에 도달하기 전에 미리 로드 (가로 스크롤)
-      const remainingScroll =
-        donateListBox.scrollWidth -
-        (donateListBox.scrollLeft + donateListBox.clientWidth);
+      const scrollProgress = emblaApi.scrollProgress();
 
-      // 남은 스크롤 거리가 300px 이하일 때 로드 시작
-      const isNearEnd = remainingScroll <= 300;
-
-      if (isNearEnd) {
+      // 스크롤 진행도가 80%를 넘으면 추가 로드
+      if (scrollProgress > 0.8) {
         loadDonation();
       }
     };
 
-    donateListBox.addEventListener('scroll', handleScroll);
+    emblaApi.on('scroll', handleScroll);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
-      donateListBox.removeEventListener('scroll', handleScroll);
+      emblaApi.off('scroll', handleScroll);
     };
-  }, [isMobile, hasMore, loadDonation]);
+  }, [emblaApi, isMobile, hasMore, loadDonation]);
+
+  // Embla 재초기화 (데이터 변경 시)
+  useEffect(() => {
+    if (emblaApi && donateList.length > 0) {
+      emblaApi.reInit();
+    }
+  }, [emblaApi, donateList, isMobile]);
 
   const getRenderedList = () => {
-    // 1. 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
+    // 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
     if (isLoading && donateList.length === 0) {
-      return Array(pageSize)
+      const skeletonItems = Array(getSkeletonSize())
         .fill(0)
         .map((_, index) => (
           <div className="donateContainer" key={`skeleton${index}`}>
             <SkeletonItem isMobile={isMobile} />
           </div>
         ));
+
+      // 데스크톱: 그룹으로 감싸기, 모바일: 그대로 반환
+      return isMobile ? (
+        skeletonItems
+      ) : (
+        <div className="donateGroup" key="skeletonGroup">
+          {skeletonItems}
+        </div>
+      );
     }
 
-    // 2. 모바일 환경일 때 (전체 리스트, 무한 스크롤)
+    // 모바일: 개별 아이템
     if (isMobile) {
       return donateList.map(donation => (
-        <Donate
-          key={donation.id}
-          donation={donation}
-          onDonateSuccess={refreshDonations}
-        />
+        <div className="donateSilde" key={donation.id}>
+          <Donate donation={donation} onDonateSuccess={refreshDonations} />
+        </div>
       ));
     }
 
-    // 3. 데스크톱 환경일 때 (페이지네이션된 리스트)
-    return currentItems.map(donation => (
-      <Donate
-        key={donation.id}
-        donation={donation}
-        onDonateSuccess={refreshDonations}
-      />
+    // 데스크톱: 4개씩 그룹으로
+    const pageGroups = getPageGroups();
+    return pageGroups.map((group, groupIndex) => (
+      <div className="donateGroup" key={`group${groupIndex}`}>
+        {group.map(donation => (
+          <div className="donateSilde" key={donation.id}>
+            <Donate donation={donation} onDonateSuccess={refreshDonations} />
+          </div>
+        ))}
+      </div>
     ));
   };
 
   const getRenderedNextBtn = () => {
     // isMobile일 경우 아무것도 렌더링하지 않음
-    if (isMobile) {
-      return null;
-    }
+    if (isMobile) return null;
 
-    // 1. 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
+    // 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
     if (isLoading && donateList.length === 0) {
       return (
         <div className="donateNavBtn skeleton-btn">
@@ -318,12 +373,12 @@ const DonateSection = () => {
       );
     }
 
-    // 2. 마지막 페이지가 아닐 때 (다음 버튼 표시)
-    if (!isLastPage) {
+    // 다음 버튼 표시 (스크롤 가능하거나 추가 데이터가 있을 때)
+    if (canScrollNext || hasMore) {
       return (
         <button
           className="donateNavBtn"
-          onClick={handleNext}
+          onClick={scrollNext}
           disabled={isLoading}
         >
           <img src={arrowRight} alt="다음" />
@@ -339,16 +394,20 @@ const DonateSection = () => {
     <section className="donateSection">
       <h2 className="donateSectionTitle">후원을 기다리는 조공</h2>
       <div className="donateBox">
-        {!isMobile && !isFirstPage && (
+        {!isMobile && canScrollPrev && (
           <button
             className="donateNavBtn"
-            onClick={handlePrev}
+            onClick={scrollPrev}
             disabled={isLoading}
           >
             <img src={arrowLeft} alt="이전" />
           </button>
         )}
-        <div className="donateList">{getRenderedList()}</div>
+
+        <div className="donateListBox" ref={emblaRef}>
+          <div className="donateList">{getRenderedList()}</div>
+        </div>
+
         {getRenderedNextBtn()}
       </div>
     </section>

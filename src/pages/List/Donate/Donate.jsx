@@ -12,6 +12,7 @@ const Donate = ({ donation, onDonateSuccess }) => {
 
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [inputCredit, setInputCredit] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { credit, decreaseCredit } = useCredit(state => state);
 
   const {
@@ -68,6 +69,9 @@ const Donate = ({ donation, onDonateSuccess }) => {
 
   // 후원하기 실행
   const handleDonate = async () => {
+    // 이미 처리 중이면 중단
+    if (isSubmitting) return;
+
     const creditAmount = Number(inputCredit);
 
     // 유효성 검사
@@ -80,12 +84,18 @@ const Donate = ({ donation, onDonateSuccess }) => {
       return; // 크레딧 초과 시 실행하지 않음
     }
 
-    const result = await apiCall(putDonaCreadit, id, creditAmount);
-    // API 호출 성공 시
-    if (result) {
-      decreaseCredit(creditAmount); // 크레딧 차감
-      handleCloseModal();
-      onDonateSuccess();
+    setIsSubmitting(true); // 처리 시작
+
+    try {
+      const result = await apiCall(putDonaCreadit, id, creditAmount);
+      // API 호출 성공 시
+      if (result) {
+        decreaseCredit(creditAmount); // 크레딧 차감
+        handleCloseModal();
+        onDonateSuccess();
+      }
+    } finally {
+      setIsSubmitting(false); // 처리 완료
     }
   };
 
@@ -122,6 +132,7 @@ const Donate = ({ donation, onDonateSuccess }) => {
         isOpen={isDonateOpen}
         onClose={handleCloseModal}
         onClick={handleDonate}
+        disabled={isSubmitting}
       >
         <div className="donateModalInfo">
           <img src={idol.profilePicture} alt={`${idol.name} profile`} />
