@@ -31,6 +31,7 @@
 
   &NavBtn {
     position: absolute;
+    z-index: 1;
     display: flex;
     width: 40px;
     height: 78.333px;
@@ -54,12 +55,26 @@
     }
   }
 
+  &ListBox {
+    width: 1200px;
+    overflow: hidden;
+  }
+
   &List {
     display: flex;
-    width: 1200px;
     gap: 24px;
   }
 
+  &Group {
+    display: flex;
+    width: 100%;
+    gap: 24px;
+    flex-shrink: 0;
+  }
+
+  &Silde {
+    flex: 0 0 calc((100% - 72px) / 4); // 4개 슬라이드, 24px 간격 3개
+  }
 }
 
 @media (max-width: 1199px) {
@@ -74,19 +89,21 @@
       }
     }
 
-    &List {
+    &ListBox {
       width: 100%;
+    }
+
+    &List {
       gap: 16px;
-      overflow-x: auto;
-      -ms-overflow-style: none; 
+    }
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    // 모바일에서는 그룹 없이 개별 아이템
+    &Group {
+      display: contents;
+    }
 
-      * {
-        flex-shrink: 0;
-      }
+    &Slide {
+      flex: 0 0 auto;
     }
   }
 }
@@ -106,9 +123,8 @@
       height: 303px;
     }
 
-    &List {
-      width: 100%;
-      gap: 16px;
+    &Slide {
+      min-width: 158px; // 모바일에서 슬라이드 최소 너비
     }
   }
 }
