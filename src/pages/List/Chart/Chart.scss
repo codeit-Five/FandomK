@@ -22,6 +22,7 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
   .titWrap {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 24px;
 
     .tit {
@@ -140,6 +141,7 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
 @media (max-width: 1199px) {
   .inner {
     width: 100%;
+    margin: 60px auto;
   }
   .chartWarp {
     padding: 0 24px;
@@ -155,6 +157,14 @@ $whiteOpa2: rgba(255, 255, 255, 0.2);
 }
 /* mobile (525px 이하) */
 @media (max-width: 525px) {
+  .inner {
+    margin: 40px auto;
+  }
+  .chartWarp {
+    .titWrap {
+      margin-bottom: 16px;
+    }
+  }
   .modalVote {
     width: 100%;
     height: 100%;
