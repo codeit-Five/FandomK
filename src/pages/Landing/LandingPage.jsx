@@ -25,15 +25,18 @@ function LandingPage() {
     setActiveSection('sec01');
     const handleScroll = () => {
       const scrollTop = landingRef.current.scrollTop;
+      const viewportHeight = landingRef.current.clientHeight;
+      const scrollCenter = scrollTop + viewportHeight / 2;
+
       const sec02Top = sec02Ref.current.offsetTop;
       const sec03Top = sec03Ref.current.offsetTop;
       const sec04Top = sec04Ref.current.offsetTop;
 
-      if (scrollTop >= sec04Top) {
+      if (scrollCenter >= sec04Top) {
         setActiveSection('sec04');
-      } else if (scrollTop >= sec03Top) {
+      } else if (scrollCenter >= sec03Top) {
         setActiveSection('sec03');
-      } else if (scrollTop >= sec02Top) {
+      } else if (scrollCenter >= sec02Top) {
         setActiveSection('sec02');
       } else {
         setActiveSection('sec01');
