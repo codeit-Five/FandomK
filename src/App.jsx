@@ -7,14 +7,17 @@ import MyPage from './pages/MyPage/MyPage';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/list" element={<ListPage />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/list" element={<ListPage />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+      <div id="modalRoot" />
+    </>
   );
 }
 
