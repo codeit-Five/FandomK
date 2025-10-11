@@ -1,0 +1,72 @@
+@use '../../assets/styles/variables' as *;
+
+.notFound {
+  &Container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20% 10%;
+
+    img {
+      width: 60%;
+      opacity: 0.8;
+    }
+
+    h1 {
+      @include txt_style(42px, B);
+    }
+
+    p {
+      @include txt_style(22px, B);
+    }
+  }
+
+  &Btn {
+    display: flex;
+    gap: 40px;
+
+    button {
+      @include txt_style(14px, B);
+      width: 200px;
+      height: 50px;
+      background: transparent;
+      text-align: center;
+      border: 1px solid rgba(241, 238, 249, 0.8);
+      border-radius: 8px;
+
+      &:hover {
+        background: $gra;
+        border: none;
+      }
+    }
+  }
+}
+
+/* mobile (525px 이하) */
+@media (max-width: 525px) {
+  .notFound {
+    &Container {
+      h1 {
+        @include txt_style(28px, B);
+      }
+
+      p {
+        @include txt_style(14px, B);
+      }
+    }
+
+    &Btn {
+      gap: 20px;
+
+      button {
+        @include txt_style(12px, B);
+        width: 140px;
+        height: 40px;
+      }
+    }
+  }
+}
