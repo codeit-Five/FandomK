@@ -1,10 +1,20 @@
-.landing, .landing-section-2, .landing-section-3, .landing-section-4 {
+.landing-wrap {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.landing,
+.landing-section-2,
+.landing-section-3,
+.landing-section-4 {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #02000E;
   position: relative;
   overflow: hidden;
 }
@@ -21,10 +31,13 @@
 }
 
 .main-bg {
-  background-size: contain;
+  background-size: 1080px auto;
+  background-position: 50% 15%;
 }
 
-.bg-section-2, .bg-section-3, .bg-section-4 {
+.bg-section-2,
+.bg-section-3,
+.bg-section-4 {
   background-size: 100% 300%;
 }
 
@@ -40,24 +53,16 @@
   background-position-y: 100%;
 }
 
-.background-image::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 80%);
-  z-index: 2;
-}
-
-.overlay, .overlay-2, .overlay-3, .overlay-4 {
+.overlay,
+.overlay-2,
+.overlay-3,
+.overlay-4 {
   text-align: center;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   position: relative;
   z-index: 3;
   width: 100%;
@@ -66,27 +71,30 @@
 }
 
 .landing {
-  padding-bottom: 0; 
+  padding-bottom: 0;
+  background:
+    url(../../assets/image/common/bg_top.svg) no-repeat 0 0 / 1920px auto,
+    #02000e;
 }
 
 .overlay-main {
-  justify-content: space-between; 
+  justify-content: space-between;
   height: 100vh;
-  padding: 80px 20px;
+  padding: 140px 20px 80px;
 }
 
 .landing-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; 
+  gap: 20px;
 }
 
 /* 텍스트 */
 .subtitle {
   font-size: 24px;
   line-height: 1.5;
-  margin-top: 0; 
+  margin-top: 0;
 }
 
 .highlight {
@@ -100,14 +108,19 @@
 }
 
 .button-container {
-  margin-bottom: 50px; 
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
 }
 
 /* 버튼 */
 .start-btn {
+  display: inline-block;
   background: linear-gradient(90deg, #ff4f85, #ff6fb1);
   border: none;
-  padding: 14px 120px;
+  max-width: 332px;
+  width: 100%;
+  padding: 14px 20px;
   border-radius: 8px;
   color: white;
   font-size: 16px;
@@ -137,8 +150,100 @@
   box-sizing: border-box;
 }
 
-.bg-section-2::after,
-.bg-section-3::after,
-.bg-section-4::after {
-  background: none;
+.btnTop {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(241, 238, 249, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  opacity: 0;
+  transition: 1.5s;
+  .blind {
+    font-size: 0;
+    color: transparent;
+    text-indent: -9999px;
+  }
+  &::after,
+  &::before {
+    content: '';
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    top: 7px;
+  }
+  &::after {
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    transform: rotate(45deg);
+    left: 10px;
+    border-color: #fff;
+  }
+  &::before {
+    width: 2px;
+    height: 14px;
+    left: 13px;
+    background: #fff;
+  }
+}
+
+[class^='landing'] {
+  .landing-header,
+  .button-container,
+  .slogan,
+  .slogan-subtitle,
+  .landing-image {
+    opacity: 0;
+  }
+  &.active {
+    .landing-header {
+      animation: opa 0.8s 0.2s forwards;
+    }
+    .button-container {
+      animation: opa 0.8s 0.8s forwards;
+    }
+    .slogan,
+    .slogan-subtitle {
+      animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    .landing-image {
+      animation: fadeInUp 0.5s 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+        forwards;
+    }
+    .btnTop {
+      opacity: 0.7;
+    }
+  }
+}
+@keyframes opa {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* Tablet (1199px 이하) */
+@media (max-width: 525px) {
+  .main-bg {
+    background-size: 200%;
+    background-position: 50% 50%;
+  }
 }
