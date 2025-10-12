@@ -17,12 +17,54 @@
     gap: 40px 20px;
   }
 
+  .navButton {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.nextButton img {
+      transform: rotate(180deg);
+    }
+  }
+
   .myIdolsSection {
     margin-bottom: 60px;
 
+    .interestIdolsContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
     .interestList {
-      grid-template-columns: repeat(auto-fill, 128px); // 카드 너비 수정
-      gap: 40px 20px; 
+      width: 1150px;
+      justify-content: center;
+      grid-template-columns: repeat(8, 128px);
+      gap: 40px 18px;
+      min-height: 183px;
+      align-items: center;
+
+      .emptyListMessage {
+        grid-column: 1 / -1;
+        text-align: center;
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
     }
   }
 
@@ -32,36 +74,14 @@
       align-items: center;
       justify-content: center;
       gap: 24px;
-
-      .navButton {
-        flex-shrink: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        img {
-          width: 24px;
-          height: 24px;
-        }
-
-        &.nextButton img {
-          transform: rotate(180deg);
-        }
-      }
     }
 
     .recommendList {
       width: 1164px;
       grid-template-columns: repeat(8, 128px);
       grid-template-rows: repeat(2, auto);
+      min-height: 406px;
+      align-content: start;
     }
 
     .message {
