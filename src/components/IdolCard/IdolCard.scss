@@ -239,5 +239,10 @@
         height: 18px;
       }
     }
+
+    &.added {   // 추가했을때 반투명 되게 수정쫌 했습니다 ! - 재승
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 }
