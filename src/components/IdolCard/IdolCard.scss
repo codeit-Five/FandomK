@@ -35,8 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(271deg, #F96E68 -9.84%, #FE578F 107.18%);
-    opacity: 0.5;
+    background: linear-gradient(271deg, rgba(249, 110, 104, 0.5) -9.84%, rgba(254, 87, 143, 0.5) 107.18%);
     border-radius: 50%;
   }
 
@@ -153,7 +152,6 @@
 
   // 내가 관심있는 아이돌
   // 밑에 있는 아이돌 카드랑 사이즈 같게 수정 했어요 ! - 재승
-  
   &Interest {
     @extend .idolCardBaseMyPage;
     width: 128px; 
@@ -221,7 +219,8 @@
         height: 115px;
 
         .idolCardSelected img {
-          width: 35.121px;
+          width: 35%;
+          height: auto;
         }
       }
     }

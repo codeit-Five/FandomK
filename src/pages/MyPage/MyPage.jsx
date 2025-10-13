@@ -159,7 +159,7 @@ export default function MyPage() {
                       idolName: idol.name,
                       groupName: idol.group,
                     }}
-                    isShowBtn={true} // 제거 버튼 표시
+                    isShowBtn // 제거 버튼 표시
                     onRemove={() => handleRemoveIdol(idol)}
                   />
                 ))
