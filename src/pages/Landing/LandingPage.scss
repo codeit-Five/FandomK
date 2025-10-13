@@ -35,7 +35,7 @@
 
 .main-bg {
   background-size: 1080px auto;
-  background-position: 50% 0;
+  background-position: 50% calc(50% + 40px);
 }
 
 .bg-section-2,
@@ -74,6 +74,9 @@
 }
 
 .landing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-bottom: 0;
   background:
     url(../../assets/image/common/bg_top.svg) no-repeat 0 0 / 1920px auto,
@@ -81,12 +84,12 @@
 }
 
 .overlay-main {
-  justify-content: space-between;
   height: 100vh;
-  padding: 140px 20px 80px;
+  padding: 120px 20px 60px;
 
   .logo {
     width: 509px;
+    margin-bottom: 490px;
   }
 }
 
