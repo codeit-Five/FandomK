@@ -17,7 +17,8 @@ export default function IdolCard({
   const { rank, voteCount } = rankInfo || {};
   const { groupName, idolName } = profileInfo || {};
   const variantClass = `idolCard${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
-  const cardClassName = `${variantClass} ${isModal ? 'modal' : ''} ${isAdded ? 'added' : ''}`.trim();
+  const cardClassName =
+    `${variantClass} ${isModal ? 'modal' : ''} ${isAdded ? 'added' : ''}`.trim();
 
   const profileContent = (
     <>
@@ -64,8 +65,6 @@ export default function IdolCard({
       {profileContent}
     </button>
   ) : (
-    <div className={cardClassName}>
-      {profileContent}
-    </div>
+    <div className={cardClassName}>{profileContent}</div>
   );
 }
