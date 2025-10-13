@@ -22,9 +22,9 @@
 | 구분                | 사용 기술                                                                                                                                                                                                                                                                                                           |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Frontend**        | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=white) |
-| **Styling**         | ![Styled Components](https://img.shields.io/badge/Styled--Components-5.3+-DB7093?style=flat-square&logo=styled-components) ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white)                                                                                            |
-| **상태 관리**       | ![Zustand](https://img.shields.io/badge/Zustand-4.4+-orange?style=flat-square)                                                                                                                                                                                                                                      |
-| **HTTP 클라이언트** | ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat-square)                                                                                                                                                                                                                                               |
+| **Styling**         | ![Styled Components](https://img.shields.io/badge/Styled_Components-DB7093?style=flat&logo=styled-components&logoColor=white) ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white)                                                                                         |
+| **상태 관리**       | ![Zustand](https://img.shields.io/badge/Zustand-443E38?style=flat&logo=react&logoColor=white) ![localStorage](https://img.shields.io/badge/localStorage-✓-green)                                                                                                                                                    |
+| **HTTP 클라이언트** | ![axios](https://img.shields.io/badge/axios-API-blue)                                                                                                                                                                                                                                                               |
 | **Routing**         | ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white)                                                                                                                                                                                               |
 | **배포**            | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel)                                                                                                                                                                                                                                 |
 | **협업**            | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion)                                                                                                                          |
@@ -219,7 +219,6 @@ POST /votes
 - **API 통신**
   - AXIOS를 활용한 API 통신 구현
   - 응답 인터셉터를 통한 에러 처리 통일화
-  - 통합된 에러 처리 구현
   - toast 알림 구현
 
 - **크레딧 상태 관리**
