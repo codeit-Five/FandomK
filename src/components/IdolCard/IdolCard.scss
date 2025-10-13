@@ -71,10 +71,24 @@
   // 마이페이지 베이스 스타일
   &BaseMyPage {
     @extend .idolCardBase;
+    width: 128px;
+    height: 183px;
     gap: 8px;
     flex-direction: column;
 
+    .idolCardImgContainer {
+      width: 128px; 
+      height: 128px; 
+      border-spacing: 1.295px;
+
+      .idolCardImgBox {
+        width: 115px;
+        height: 115px;
+      }  
+    }
+
     .idolCardProfile {
+      width: 100%;
       gap: 2px;
       flex-direction: column;
 
@@ -84,11 +98,15 @@
 
       .idolName {
         @include txt_style(16px, B);
+        width: 100%;
+        height: 27px;
         color: #f4efef;
       }
 
       .groupName {
         @include txt_style(14px, R);
+        width: 104px;
+        height: 18px;
         color: rgba(255, 255, 255, 0.60);
       }
     }
@@ -151,22 +169,11 @@
   }
 
   // 내가 관심있는 아이돌
-  // 밑에 있는 아이돌 카드랑 사이즈 같게 수정 했어요 ! - 재승
   &Interest {
     @extend .idolCardBaseMyPage;
-    width: 128px; 
-    height: 183px;
 
     .idolCardImgContainer {
       position: relative;
-      width: 128px; 
-      height: 128px; 
-      border-spacing: 1.295px;
-
-      .idolCardImgBox {
-        width: 115px; 
-        height: 115px; 
-      }
 
       button {
         position: absolute;
@@ -187,61 +194,52 @@
         }
       }
     }
-
-    .idolCardProfile {
-      width: 128px;
-
-      .idolName {
-        width: 100%;
-        height: 27px;
-      }
-
-      .groupName {
-        width: 104px;
-        height: 18px;
-      }
-    }
   }
 
   // 관심 있는 아이돌 추가
   &Recommend {
     @extend .idolCardBaseMyPage;
-    width: 128px;
-    height: 183px;
 
-    .idolCardImgContainer {
-      width: 128px;
-      height: 128px;
-      border-spacing: 1.295px;
+    .idolCardSelected img {
+      width: 35%;
+      height: auto;
+    }
 
-      .idolCardImgBox {
-        width: 115px;
-        height: 115px;
+    // 내가 관심있는 아이돌에 추가했을 때, 반투명 표시
+    &.added {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
 
-        .idolCardSelected img {
-          width: 35%;
-          height: auto;
-        }
+/* mobile (525px 이하) */
+@media (max-width: 525px) {
+  .idolCard {
+    &BaseMyPage {
+      width: 98px;
+      height: 151px;
+
+      .idolCardImgContainer {
+        width: 98px;
+        height: 98px;
+
+        .idolCardImgBox {
+          width: 88px;
+          height: 88px;
+        }  
       }
     }
 
     .idolCardProfile {
-      width: 128px;
-
       .idolName {
-        width: 100%;
-        height: 27px;
+        height: 26px;
       }
 
       .groupName {
-        width: 104px;
-        height: 18px;
+        width: 100%;
+        height: 17px;
       }
-    }
-
-    &.added {   // 추가했을때 반투명 되게 수정쫌 했습니다 ! - 재승
-      opacity: 0.5;
-      pointer-events: none;
     }
   }
 }
