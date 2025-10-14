@@ -108,7 +108,7 @@ const DonateSection = () => {
     // 개발 환경에서 Strict Mode로 인한 이중 호출 방지 로직
     if (process.env.NODE_ENV === 'development' && !didMountRef.current) {
       didMountRef.current = true;
-      return;
+      return undefined;
     }
 
     if (width !== 0) {
@@ -150,8 +150,18 @@ const DonateSection = () => {
         setIsLoading(false);
       };
 
-      resetAndLoad();
+      // 디바운스 로직: 300ms 동안 width 변화가 멈춘 후에만 resetAndLoad 실행
+      const handler = setTimeout(() => {
+        resetAndLoad();
+      }, 300);
+
+      // cleanup 함수: 다음 width 변경 시 이전 타이머를 취소함
+      return () => {
+        clearTimeout(handler);
+      };
     }
+
+    return undefined;
   }, [width, isMobile]);
 
   const getRenderedList = () => {
