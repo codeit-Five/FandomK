@@ -4,14 +4,27 @@ import { DonateNavBtn, DonateCarouselBtn } from './DonateCarouselBtn';
 import { NextBtnSkeleton } from '../skeleton/DonateSkeleton';
 
 const DonateCarousel = props => {
-  const { children, options, loadDonation, isMobile, isLoading, hasMore } =
-    props;
+  const {
+    children,
+    options,
+    preloadDonation,
+    isMobile,
+    isLoading,
+    hasMore,
+    isInitialLoadDone,
+  } = props;
 
   // Embla Carousel 설정
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const { canScrollPrev, canScrollNext, onPrevBtnClick, onNextBtnClick } =
-    DonateCarouselBtn({ emblaApi, loadDonation, isMobile, hasMore });
+    DonateCarouselBtn({
+      emblaApi,
+      preloadDonation,
+      isMobile,
+      hasMore,
+      isInitialLoadDone,
+    });
 
   const getRenderedNextBtn = () => {
     // isMobile일 경우 아무것도 렌더링하지 않음
@@ -37,19 +50,15 @@ const DonateCarousel = props => {
     return null;
   };
 
-  // 모바일 스크롤 감지
+  // 모바일 스크롤 감지 (스크롤 발생 시 주기적으로 추가 로드 시도)
   const loadDonationOnScroll = useCallback(() => {
     // 로딩 중이거나 더 이상 데이터가 없으면 리턴
     if (!hasMore || isLoading) return;
     if (!emblaApi) return;
 
-    const scrollProgress = emblaApi.scrollProgress();
-
-    // 스크롤 진행도가 50%를 넘으면 추가 로드
-    if (scrollProgress > 0.5) {
-      loadDonation();
-    }
-  }, [emblaApi, hasMore, loadDonation, isLoading]);
+    // 스크롤 이벤트 발생 시마다 로드 시도 (DonateSection에서 로딩 중 중복 호출 방지)
+    preloadDonation();
+  }, [hasMore, preloadDonation, isLoading, emblaApi]);
 
   // Embla 재초기화 (데이터 변경 시)
   useEffect(() => {
@@ -62,6 +71,7 @@ const DonateCarousel = props => {
   useEffect(() => {
     if (!isMobile || !emblaApi) return undefined;
 
+    // 'scroll' 이벤트에 연결하여 스크롤 발생 시마다 로드 시도
     emblaApi.on('scroll', loadDonationOnScroll);
 
     return () => {

@@ -7,9 +7,13 @@ import DonateCarousel from './carousel/DonateCarousel';
 import { DonateSkeletonList } from './skeleton/DonateSkeleton';
 import './DonateSection.scss';
 
-// 데스크톱/모바일 환경에 따른 데이터 요청 개수 정의
-const DESKTOP_PAGE_SIZE = 4;
-const MOBILE_PAGE_SIZE = 8;
+// 데스크톱 환경에서 표시되는 데이터 개수
+const DESKTOP_GROUP_SIZE = 4;
+// 모바일 스크롤 시 주기적으로 로드할 개수
+const MOBILE_PRELOAD_SIZE = 3;
+
+// 초기 로딩 시 데스크톱/모바일 동일하게 8개 로드
+const INITIAL_LOAD_SIZE = 8;
 
 const DonateSection = () => {
   const didMountRef = useRef(false);
@@ -18,6 +22,7 @@ const DonateSection = () => {
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialLoadDone, setIsInitialLoadDone] = useState(false); // 초기 로딩 완료 상태
 
   const { width } = useWindowSize();
 
@@ -27,15 +32,12 @@ const DonateSection = () => {
   // Embla Carousel OPTIONS 생성 (useMemo를 사용하여 isMobile 값에 따라 옵션 정의)
   const OPTIONS = useMemo(
     () => ({
-      duration: 50,
+      duration: 30,
       dragFree: isMobile,
       watchDrag: isMobile, // 데스크톱에서는 드래그 비활성화
     }),
     [isMobile],
   );
-
-  // 모바일/데스크톱 환경에 따라 데이터 요청 개수(size) 결정
-  const pageSize = isMobile ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
 
   // 데스크톱용 페이지 그룹 생성 (4개씩 묶기)
   const getPageGroups = useCallback(() => {
@@ -44,36 +46,33 @@ const DonateSection = () => {
     }
 
     const groups = [];
-    for (let i = 0; i < donateList.length; i += DESKTOP_PAGE_SIZE) {
-      const items = donateList.slice(i, i + DESKTOP_PAGE_SIZE);
+    for (let i = 0; i < donateList.length; i += DESKTOP_GROUP_SIZE) {
+      const items = donateList.slice(i, i + DESKTOP_GROUP_SIZE);
       groups.push({ items, groupKey: items.map(item => item.id).join('') });
     }
     return groups;
   }, [donateList, isMobile]);
 
-  const loadDonation = useCallback(async () => {
-    // 현재 로딩 중이거나, 모바일 환경에서 더 이상 데이터가 없다면 즉시 종료
-    // ref를 사용해서 중복 호출 방지
-    if (isLoadingRef.current || (isMobile && !hasMore)) return;
+  // 다음 페이지를 미리 로드
+  const preloadDonation = useCallback(async () => {
+    // 로딩 중이거나 더 이상 데이터가 없으면 즉시 종료
+    if (isLoadingRef.current || !hasMore) return;
 
     isLoadingRef.current = true;
-    setIsLoading(true);
 
-    const result = await apiCall(getDonations, pageSize, cursor, null);
+    const size = isMobile ? MOBILE_PRELOAD_SIZE : DESKTOP_GROUP_SIZE;
+    const result = await apiCall(getDonations, size, cursor, null);
 
-    if (!result) return;
+    if (!result) {
+      isLoadingRef.current = false;
+      return;
+    }
 
-    // 키 중복 해결 로직: 새로운 데이터를 추가하기 전에 중복 ID를 가진 항목을 제거
     setDonateList(prev => {
-      // 기존 리스트 항목의 ID만 모은 Set 생성
       const existingIds = new Set(prev.map(item => item.id));
-
-      // 새로운 리스트에서 기존 리스트에 없는 항목만 필터링
       const uniqueNewItems = result.list.filter(
         item => !existingIds.has(item.id),
       );
-
-      // 중복이 제거된 새로운 항목을 기존 리스트 뒤에 추가
       return [...prev, ...uniqueNewItems];
     });
 
@@ -81,8 +80,7 @@ const DonateSection = () => {
     setHasMore(result.nextCursor !== null);
 
     isLoadingRef.current = false;
-    setIsLoading(false);
-  }, [cursor, isMobile, hasMore, pageSize]);
+  }, [cursor, isMobile, hasMore]);
 
   // 후원 후 데이터 새로고침
   const refreshDonations = async () => {
@@ -92,7 +90,8 @@ const DonateSection = () => {
     setIsLoading(true);
 
     // 처음부터 다시 로드 (cursor: null)
-    const result = await apiCall(getDonations, pageSize, null, null);
+    const size = isMobile ? INITIAL_LOAD_SIZE : DESKTOP_GROUP_SIZE;
+    const result = await apiCall(getDonations, size, null, null);
 
     if (!result) return;
 
@@ -120,12 +119,21 @@ const DonateSection = () => {
         setCursor(null);
         setHasMore(true);
 
+        // 초기 로딩 시작
+        setIsInitialLoadDone(false);
+
         // 로딩 상태 시작
         isLoadingRef.current = true;
         setIsLoading(true);
 
         // API 호출: 현재 결정된 pageSize를 사용하여 첫 페이지 데이터 요청 (cursor: null)
-        const result = await apiCall(getDonations, pageSize, null, null);
+        const result = await apiCall(
+          getDonations,
+          INITIAL_LOAD_SIZE, // 초기 로딩 시: 데스크톱/모바일 구분 없이 8개 요청
+          null,
+          null,
+        );
+
         if (result) {
           // API 결과로 리스트 업데이트
           setDonateList(result.list);
@@ -133,6 +141,8 @@ const DonateSection = () => {
           setCursor(result.nextCursor);
           // nextCursor가 null이 아니면 hasMore를 true로 설정
           setHasMore(result.nextCursor !== null);
+          // 초기 로딩 완료
+          setIsInitialLoadDone(true);
         }
 
         // 로딩 상태 종료
@@ -142,7 +152,7 @@ const DonateSection = () => {
 
       resetAndLoad();
     }
-  }, [width, pageSize]);
+  }, [width, isMobile]);
 
   const getRenderedList = () => {
     // 초기 로딩 중 & 리스트가 비어있을 때 (스켈레톤 표시)
@@ -178,7 +188,8 @@ const DonateSection = () => {
       {/* DonateCarousel 컴포넌트 사용 */}
       <DonateCarousel
         options={OPTIONS}
-        loadDonation={loadDonation}
+        preloadDonation={preloadDonation}
+        isInitialLoadDone={isInitialLoadDone}
         isMobile={isMobile}
         hasMore={hasMore}
         isLoading={isLoading} // 로딩 상태 전달

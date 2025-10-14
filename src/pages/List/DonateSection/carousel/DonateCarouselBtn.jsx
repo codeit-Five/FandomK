@@ -4,9 +4,10 @@ import arrowRight from '@/assets/image/icons/ic_arrow_right.svg';
 
 export const DonateCarouselBtn = ({
   emblaApi,
-  loadDonation,
+  preloadDonation,
   isMobile,
   hasMore,
+  isInitialLoadDone,
 }) => {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -24,18 +25,14 @@ export const DonateCarouselBtn = ({
     // 스크롤 가능하면 이동
     if (canScroll) {
       emblaApi.scrollNext();
+
+      // 데스크톱에서 Next로 이동 후, 다음 그룹을 미리 로드 (프리로딩)
+      if (!isMobile && hasMore && isInitialLoadDone) {
+        // 현재 커서 상태로 다음 페이지를 미리 로드
+        preloadDonation();
+      }
     }
-    // 데스크톱에서 더 이상 스크롤할 수 없지만 추가 데이터가 있으면 로드
-    else if (!isMobile && hasMore) {
-      await loadDonation();
-      // 데이터 로드 후 다음 슬라이드로 이동
-      setTimeout(() => {
-        if (emblaApi) {
-          emblaApi.scrollNext();
-        }
-      }, 100);
-    }
-  }, [emblaApi, isMobile, hasMore, loadDonation]);
+  }, [emblaApi, isMobile, hasMore, isInitialLoadDone, preloadDonation]);
 
   const onSelect = useCallback(emblaApi => {
     setCanScrollPrev(emblaApi.canScrollPrev());
