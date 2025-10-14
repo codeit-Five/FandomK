@@ -4,13 +4,14 @@ import { useEffect, useState, useRef } from 'react';
  * 숫자가 0 (또는 이전 값)에서 최종 값까지 부드럽게 증가하는 애니메이션 훅
  *
  * @param {number} endValue - 목표 숫자.
- * @param {number} [duration=1000] - 애니메이션 지속 시간 (ms).
  * @returns {number} 현재 카운트 값.
  */
-const useCountAnimation = (endValue, duration = 1000) => {
+const useCountAnimation = endValue => {
   const [count, setCount] = useState(0);
   // 이전 최종 값을 저장하여 다음 애니메이션 시작점으로 사용
   const prevValueRef = useRef(null);
+  // 애니메이션 지속 시간 (ms).
+  const duration = 1000;
 
   useEffect(() => {
     const isFirstRender = prevValueRef.current === null;
@@ -51,7 +52,7 @@ const useCountAnimation = (endValue, duration = 1000) => {
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [endValue, duration]);
+  }, [endValue]);
 
   return count;
 };

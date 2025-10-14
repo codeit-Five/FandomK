@@ -4,7 +4,7 @@ const STORAGE_CREADIT = 'userCredit';
 const useCredit = create(set => ({
   credit: (() => {
     const savedCredit = localStorage.getItem(STORAGE_CREADIT);
-    return savedCredit ? JSON.parse(savedCredit) : 1000;
+    return savedCredit ? JSON.parse(savedCredit) : 10000;
   })(),
   increaseCredit: changeCredit =>
     set(state => {
