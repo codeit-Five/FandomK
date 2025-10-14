@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import useCredit from '@/stores/creditIndex';
 import { apiCall } from '@/apis/baseApi';
 import { putDonaCreadit } from '@/apis/donationsApi';
+import numberFormat from '@/util/numberFormat';
 import './Donate.scss';
 import creditIcon from '@/assets/image/icons/ic_credit.svg';
 
@@ -30,6 +33,8 @@ const Donate = ({ donation, onDonateSuccess }) => {
   // 입력한 크레딧과 후원된 크레딧의 합이 타겟 크레딧을 초과하는지 확인
   const isOverTargetCredit =
     inputCredit && Number(inputCredit) + receivedDonations > targetDonation;
+  // 입력할 수 있는 최대 크레딧
+  const maxLimitCredit = targetDonation - receivedDonations;
 
   // 남은 날짜 계산
   const calculateRemainingDays = deadline => {
@@ -71,7 +76,15 @@ const Donate = ({ donation, onDonateSuccess }) => {
     const creditAmount = Number(inputCredit);
 
     // 유효성 검사
-    if (!inputCredit || creditAmount <= 0) return;
+    if (!inputCredit) {
+      toast.error('크레딧이 입력되지 않았습니다.');
+      return;
+    }
+
+    if (creditAmount <= 0) {
+      toast.error('0 이상의 크레딧을 입력해주세요.');
+      return;
+    }
 
     // 크레딧 초과 시 실행하지 않음
     if (creditAmount > credit) return;
@@ -88,6 +101,7 @@ const Donate = ({ donation, onDonateSuccess }) => {
       handleDonateModal();
       onDonateSuccess();
     } catch (err) {
+      toast.error('데이터 처리 중 오류가 발생했습니다. ');
       console.error(err);
     } finally {
       setIsSubmitting(false); // 처리 완료
@@ -117,9 +131,9 @@ const Donate = ({ donation, onDonateSuccess }) => {
           <div className="donateCredit">
             <img src={creditIcon} alt="credit icon" />
             <div className="donateCreditBox">
-              <span>{receivedDonations.toLocaleString()}</span>
+              <span>{numberFormat(receivedDonations)}</span>
               <span>/</span>
-              <span>{targetDonation.toLocaleString()}</span>
+              <span>{numberFormat(targetDonation)}</span>
             </div>
           </div>
           <span className="donateRemainingDays">
@@ -164,7 +178,9 @@ const Donate = ({ donation, onDonateSuccess }) => {
             <span>갖고 있는 크레딧보다 더 많이 후원할 수 없어요</span>
           )}
           {isOverTargetCredit && (
-            <span>목표 크레딧보다 더 많이 후원할 수 없어요</span>
+            <span>
+              {numberFormat(maxLimitCredit)}보다 더 많이 후원할 수 없어요
+            </span>
           )}
         </div>
       </Modal>

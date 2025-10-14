@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import useCredit from '@/stores/creditIndex';
 import numberFormat from '@/util/numberFormat';
 import useCountAnimation from '@/hooks/useCountAnimation';
@@ -30,6 +32,11 @@ const CreditSection = () => {
 
   // 크레딧 충전하기
   const handleRechargeCredit = () => {
+    if (selectedCredit <= 0) {
+      toast.error('충전할 크레딧이 선택되지 않았습니다.');
+      return;
+    }
+
     increaseCredit(selectedCredit);
     handleCloseModal();
   };
