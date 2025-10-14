@@ -1,4 +1,4 @@
-import IdolCard from '../IdolCard/IdolCard';
+import IdolCard from '@/components/IdolCard/IdolCard';
 import creditIcon from '@/assets/image/icons/ic_credit.svg';
 import './OptionCard.scss';
 

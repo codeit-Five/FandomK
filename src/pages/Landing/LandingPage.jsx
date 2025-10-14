@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '@/assets/image/logo/fandom-klogo.svg';
 import bg from '@/assets/image/landing-bg.svg';
 import newBg from '@/assets/image/landing-bottom.png';
@@ -72,7 +72,9 @@ function LandingPage() {
               내가 좋아하는 아이돌을 <br />
               가장 <span className="highlight">쉽게 덕질</span>하는 방법
             </p>
-            <img src={logo} alt="Fandom-K Logo" className="logo" />
+            <Link to="/list">
+              <img src={logo} alt="Fandom-K Logo" className="logo" />
+            </Link>
           </div>
           <div className="button-container">
             <button className="start-btn" onClick={handleStart}>

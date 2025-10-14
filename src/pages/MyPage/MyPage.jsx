@@ -1,18 +1,30 @@
 import { useState, useEffect } from 'react';
-import Header from '../../components/Header/Header';
-import IdolCard from '../../components/IdolCard/IdolCard';
-import Button from '../../components/Button/Button';
-import { apiCall } from '../../apis/baseApi';
-import { getIdols } from '../../apis/idolsApi';
-import prevIcon from '../../assets/image/icons/ic_btn_prev.svg';
+import Header from '@/components/Header/Header';
+import IdolCard from '@/components/IdolCard/IdolCard';
+import Button from '@/components/Button/Button';
+import useWindowSize from '@/hooks/useWindowSize';
+import { apiCall } from '@/apis/baseApi';
+import { getIdols } from '@/apis/idolsApi';
+import prevIcon from '@/assets/image/icons/ic_btn_prev.svg';
 import './MyPage.scss';
 
-// 한 페이지에 보여줄 아이돌 카드 개수
-const IDOLS_PER_PAGE = 16; // 추천 아이돌 목록
-const MY_IDOLS_PER_PAGE = 8; // 내 관심 아이돌 목록
+let IDOLS_PER_PAGE;
 
 export default function MyPage() {
   // --- STATE VARIABLES --- //
+  const { width } = useWindowSize();
+
+  // 모바일 여부 확인
+  const isMobile = width < 640;
+
+  // 해상도별 한 페이지에 보여줄 아이돌 카드 개수
+  if (width < 640) {
+    IDOLS_PER_PAGE = 66;
+  } else if (width < 1200) {
+    IDOLS_PER_PAGE = 8;
+  } else {
+    IDOLS_PER_PAGE = 16;
+  }
 
   // 내 관심 아이돌 목록. localStorage에서 초기값을 불러옴.
   const [myIdols, setMyIdols] = useState(() => {
@@ -23,9 +35,8 @@ export default function MyPage() {
   // 추천 목록에서 선택된 아이돌 목록
   const [selectedIdols, setSelectedIdols] = useState([]);
 
-  // 현재 페이지 번호 (추천 아이돌, 내 관심 아이돌)
+  // 현재 페이지 번호 (추천 아이돌)
   const [currentPage, setCurrentPage] = useState(0);
-  const [myIdolsPage, setMyIdolsPage] = useState(0);
 
   // API로부터 받아온 전체 아이돌 목록
   const [allIdols, setAllIdols] = useState([]);
@@ -60,19 +71,17 @@ export default function MyPage() {
     localStorage.setItem('myIdols', JSON.stringify(myIdols));
   }, [myIdols]);
 
+  useEffect(() => {
+    // IDOLS_PER_PAGE가 변경되면 현재 페이지를 0으로 리셋
+    setCurrentPage(0);
+  }, [IDOLS_PER_PAGE]);
+
   // 전체 페이지 수 계산
   const totalPages = Math.ceil(allIdols.length / IDOLS_PER_PAGE);
-  const myIdolsTotalPages = Math.ceil(myIdols.length / MY_IDOLS_PER_PAGE);
 
   // 현재 페이지에 보여줄 아이돌 목록 계산
   const startIndex = currentPage * IDOLS_PER_PAGE;
   const currentIdols = allIdols.slice(startIndex, startIndex + IDOLS_PER_PAGE);
-
-  const myIdolsStartIndex = myIdolsPage * MY_IDOLS_PER_PAGE;
-  const currentMyIdols = myIdols.slice(
-    myIdolsStartIndex,
-    myIdolsStartIndex + MY_IDOLS_PER_PAGE,
-  );
 
   // 추천 아이돌 선택/해제 핸들러
   const handleSelectIdol = idol => {
@@ -101,12 +110,6 @@ export default function MyPage() {
   const handleRemoveIdol = idolToRemove => {
     const newMyIdols = myIdols.filter(idol => idol.name !== idolToRemove.name);
     setMyIdols(newMyIdols);
-
-    // 아이돌 제거 후 현재 페이지가 비어있게 되면 이전 페이지로 이동
-    const newTotalPages = Math.ceil(newMyIdols.length / MY_IDOLS_PER_PAGE);
-    if (myIdolsPage >= newTotalPages) {
-      setMyIdolsPage(Math.max(newTotalPages - 1, 0));
-    }
   };
 
   // 추천 아이돌 목록 페이지네이션 핸들러
@@ -116,15 +119,6 @@ export default function MyPage() {
 
   const handlePrevPage = () => {
     setCurrentPage(prev => (prev - 1 + totalPages) % totalPages);
-  };
-
-  // 내 관심 아이돌 목록 페이지네이션 핸들러
-  const handleMyIdolsNextPage = () => {
-    setMyIdolsPage(prev => (prev + 1) % myIdolsTotalPages);
-  };
-
-  const handleMyIdolsPrevPage = () => {
-    setMyIdolsPage(prev => (prev - 1 + myIdolsTotalPages) % myIdolsTotalPages);
   };
 
   return (
@@ -137,20 +131,13 @@ export default function MyPage() {
             내가 관심있는 아이돌 ({myIdols.length})
           </h2>
           <div className="interestIdolsContainer">
-            <button
-              className="navButton prevButton"
-              onClick={handleMyIdolsPrevPage}
-              disabled={myIdolsTotalPages <= 1}
-            >
-              <img src={prevIcon} alt="Previous" />
-            </button>
             <div className="idolList interestList">
               {myIdols.length === 0 ? (
                 <div className="emptyListMessage">
                   관심있는 아이돌을 추가해 주세요
                 </div>
               ) : (
-                currentMyIdols.map(idol => (
+                myIdols.map(idol => (
                   <IdolCard
                     key={idol.id}
                     variant="interest"
@@ -165,13 +152,6 @@ export default function MyPage() {
                 ))
               )}
             </div>
-            <button
-              className="navButton nextButton"
-              onClick={handleMyIdolsNextPage}
-              disabled={myIdolsTotalPages <= 1}
-            >
-              <img src={prevIcon} alt="Next" />
-            </button>
           </div>
         </section>
 
@@ -183,14 +163,18 @@ export default function MyPage() {
           ) : error ? (
             <div className="message error">{error}</div>
           ) : (
-            <div className="recommendIdolsContainer">
-              <button
-                className="navButton prevButton"
-                onClick={handlePrevPage}
-                disabled={totalPages <= 1}
-              >
-                <img src={prevIcon} alt="Previous" />
-              </button>
+            <div
+              className={`recommendIdolsContainer ${isMobile ? 'mobile-scroll' : ''}`}
+            >
+              {!isMobile && (
+                <button
+                  className="navButton prevButton"
+                  onClick={handlePrevPage}
+                  disabled={totalPages <= 1}
+                >
+                  <img src={prevIcon} alt="Previous" />
+                </button>
+              )}
               <div className="idolList recommendList">
                 {currentIdols.map(idol => (
                   <IdolCard
@@ -201,23 +185,23 @@ export default function MyPage() {
                       idolName: idol.name,
                       groupName: idol.group,
                     }}
-                    // 현재 선택되었는지 여부
                     isSelected={
                       !!selectedIdols.find(selected => selected.id === idol.id)
                     }
-                    // 이미 내 관심 목록에 추가되었는지 여부 (반투명 처리)
                     isAdded={myIdols.some(myIdol => myIdol.id === idol.id)}
                     onClick={() => handleSelectIdol(idol)}
                   />
                 ))}
               </div>
-              <button
-                className="navButton nextButton"
-                onClick={handleNextPage}
-                disabled={totalPages <= 1}
-              >
-                <img src={prevIcon} alt="Next" />
-              </button>
+              {!isMobile && (
+                <button
+                  className="navButton nextButton"
+                  onClick={handleNextPage}
+                  disabled={totalPages <= 1}
+                >
+                  <img src={prevIcon} alt="Next" />
+                </button>
+              )}
             </div>
           )}
           <div className="addButtonContainer">
