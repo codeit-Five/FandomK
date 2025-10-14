@@ -1,26 +1,33 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { apiCall } from '../../../apis/baseApi';
 import getCharts from '../../../apis/chartsApi';
 import postVotes from '../../../apis/votesApi';
 import useWindowSize from '../../../hooks/useWindowSize';
-import useCredit from '../../../hooks/useCredit';
+import useCredit from '../../../stores/creditIndex';
 import Button from '../../../components/Button/Button';
 import Modal from '../../../components/Modal/Modal';
 import IdolCard from '../../../components/IdolCard/IdolCard';
 import OptionCard from '../../../components/OptionCard/OptionCard';
-import './Chart.scss';
+import '../../../components/IdolCard/IdolCard.scss';
+import './ChartSection.scss';
 
-const Chart = () => {
+const ChartSection = () => {
   const VOTE_CREDIT = 1000;
+
   const [gender, setGender] = useState('female');
   const [chartList, setChartList] = useState([]);
   const [popChartList, setPopChartList] = useState([]);
   const [cursor, setCursor] = useState(null);
-  const { width } = useWindowSize();
   const [selectedIdol, setSelectedIdol] = useState(null);
-
   const [isChartOpen, setIsChartOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { width } = useWindowSize();
   const { credit, decreaseCredit } = useCredit(state => state);
 
   // 해상도별 페이지
@@ -45,19 +52,16 @@ const Chart = () => {
         setChartList(result.idols); // 새로 로드: 새로운 데이터만
       }
       setCursor(result.nextCursor);
+      setIsLoading(false);
     }
   }
-
-  // 차트 정렬
-  const sortedChartList = [...chartList].sort(
-    (a, b) => b.totalVotes - a.totalVotes,
-  );
 
   // 차트 성별 변경
   const handleChartChange = newGender => {
     if (newGender === gender) return;
     setGender(newGender);
     setCursor(null);
+    setIsLoading(true);
   };
 
   // 차트 더보기
@@ -68,12 +72,16 @@ const Chart = () => {
   // 차트팝업 아이돌 조회
   async function loadPopIdols(gender, cursor, pageSize) {
     const result = await apiCall(getCharts, gender, cursor, pageSize);
-    if (result) setPopChartList(result.idols);
+    if (result) {
+      setPopChartList(result.idols);
+      setIsLoading(false);
+    }
   }
   // 차트팝업 open
   const handleOpen = () => {
     loadPopIdols(gender, null, 150);
     setIsChartOpen(true);
+    setIsLoading(true);
   };
   // 차트팝업 close
   const handleClose = () => {
@@ -89,7 +97,13 @@ const Chart = () => {
         loadIdols(gender, null, setPaseSize());
       }
     }
+
     if (credit >= 1000) {
+      if (!selectedIdol) {
+        toast.error('선택된 아이돌이 없습니다.');
+        alert('선택된 아이돌이 없습니다.');
+        return;
+      }
       decreaseCredit(VOTE_CREDIT);
       postIdolVotes(selectedIdol);
     } else {
@@ -103,6 +117,12 @@ const Chart = () => {
 
   useEffect(() => {
     loadIdols(gender, null, setPaseSize());
+
+    // 차트 정렬
+    const sortedChartList = [...chartList].sort(
+      (a, b) => b.totalVotes - a.totalVotes,
+    );
+    setChartList(sortedChartList);
   }, [gender, width]);
 
   return (
@@ -126,19 +146,25 @@ const Chart = () => {
         </button>
       </div>
       <ul className="chartList">
-        {sortedChartList.map((item, index) => {
-          const { id, name, group, profilePicture, totalVotes } = item;
-          return (
-            <li key={id}>
-              <IdolCard
-                variant="chart"
-                imgUrl={profilePicture}
-                rankInfo={{ rank: index + 1, voteCount: totalVotes }}
-                profileInfo={{ groupName: group, idolName: name }}
-              />
-            </li>
-          );
-        })}
+        {isLoading
+          ? Array.from({ length: setPaseSize() }).map((_, index) => (
+              <li key={`skeleton${index}`}>
+                <SkeletonIdolCard />
+              </li>
+            ))
+          : chartList.map((item, index) => {
+              const { id, name, group, profilePicture, totalVotes } = item;
+              return (
+                <li key={id}>
+                  <IdolCard
+                    variant="chart"
+                    imgUrl={profilePicture}
+                    rankInfo={{ rank: index + 1, voteCount: totalVotes }}
+                    profileInfo={{ groupName: group, idolName: name }}
+                  />
+                </li>
+              );
+            })}
       </ul>
       {cursor && (
         <button className="btnChartMore" onClick={handleListMore}>
@@ -156,28 +182,34 @@ const Chart = () => {
         onClick={handleVotes}
       >
         <ul className="chartList">
-          {popChartList.map((item, index) => {
-            const { id, name, group, profilePicture, totalVotes } = item;
-            return (
-              <li key={id}>
-                <OptionCard
-                  variant="chart"
-                  isRadioDisplay
-                  radioInfo={{
-                    id,
-                    name: 'idolOption',
-                    selected: selectedIdol,
-                    setSelected: setSelectedIdol,
-                  }}
-                  idolCardInfo={{
-                    imgUrl: profilePicture,
-                    rankInfo: { rank: index + 1, voteCount: totalVotes },
-                    profileInfo: { groupName: group, idolName: name },
-                  }}
-                />
-              </li>
-            );
-          })}
+          {isLoading
+            ? Array.from({ length: 15 }).map((_, index) => (
+                <li key={`skeleton${index}`}>
+                  <SkeletonIdolCard />
+                </li>
+              ))
+            : popChartList.map((item, index) => {
+                const { id, name, group, profilePicture, totalVotes } = item;
+                return (
+                  <li key={id}>
+                    <OptionCard
+                      variant="chart"
+                      isRadioDisplay
+                      radioInfo={{
+                        id,
+                        name: 'idolOption',
+                        selected: selectedIdol,
+                        setSelected: setSelectedIdol,
+                      }}
+                      idolCardInfo={{
+                        imgUrl: profilePicture,
+                        rankInfo: { rank: index + 1, voteCount: totalVotes },
+                        profileInfo: { groupName: group, idolName: name },
+                      }}
+                    />
+                  </li>
+                );
+              })}
         </ul>
       </Modal>
 
@@ -197,4 +229,44 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default ChartSection;
+
+export const SkeletonIdolCard = () => {
+  // 스켈레톤 색상 정의
+  const BASE_COLOR = '#333';
+  const HIGHLIGHT_COLOR = '#444';
+
+  return (
+    <div className="idolCardChart">
+      <div className="idolCardImgContainer">
+        <Skeleton
+          circle
+          className="idolCardImgBox"
+          baseColor={BASE_COLOR}
+          highlightColor={HIGHLIGHT_COLOR}
+        />
+      </div>
+      <Skeleton
+        width={7}
+        height={19}
+        style={{ margin: '0 12px' }}
+        baseColor={BASE_COLOR}
+        highlightColor={HIGHLIGHT_COLOR}
+      />
+      <Skeleton
+        width={70}
+        height={19}
+        baseColor={BASE_COLOR}
+        highlightColor={HIGHLIGHT_COLOR}
+      />
+      <div className="voteCount">
+        <Skeleton
+          width={35}
+          height={19}
+          baseColor={BASE_COLOR}
+          highlightColor={HIGHLIGHT_COLOR}
+        />
+      </div>
+    </div>
+  );
+};
