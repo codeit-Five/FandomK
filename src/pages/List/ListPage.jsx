@@ -1,7 +1,7 @@
 import Header from '../../components/Header/Header';
 import CreditSection from './CreditSection/CreditSection';
 import DonateSection from './DonateSection/DonateSection';
-import Chart from './Chart/Chart';
+import ChartSection from './ChartSection/ChartSection';
 
 function ListPage() {
   return (
@@ -9,7 +9,7 @@ function ListPage() {
       <Header />
       <CreditSection />
       <DonateSection />
-      <Chart />
+      <ChartSection />
     </div>
   );
 }
