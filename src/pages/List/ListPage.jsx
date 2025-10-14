@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import Header from '../../components/Header/Header';
 import CreditSection from './CreditSection/CreditSection';
 import DonateSection from './DonateSection/DonateSection';
@@ -10,6 +11,8 @@ function ListPage() {
       <CreditSection />
       <DonateSection />
       <ChartSection />
+
+      <ToastContainer autoClose={2000} theme="dark" />
     </div>
   );
 }

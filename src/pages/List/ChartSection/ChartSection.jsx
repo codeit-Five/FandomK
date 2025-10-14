@@ -101,7 +101,6 @@ const ChartSection = () => {
     if (credit >= 1000) {
       if (!selectedIdol) {
         toast.error('선택된 아이돌이 없습니다.');
-        alert('선택된 아이돌이 없습니다.');
         return;
       }
       decreaseCredit(VOTE_CREDIT);
