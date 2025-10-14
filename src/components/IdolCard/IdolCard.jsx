@@ -1,6 +1,6 @@
 import './IdolCard.scss';
-import btnPlus from '../../assets/image/icons/ic_btn_remove.svg';
-import checkmark from '../../assets/image/icons/ic_checkmark.svg';
+import btnPlus from '@/assets/image/icons/ic_btn_remove.svg';
+import checkmark from '@/assets/image/icons/ic_checkmark.svg';
 
 export default function IdolCard({
   variant,
