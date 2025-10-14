@@ -82,8 +82,12 @@ npm run dev
 │   │   │   ├── 📂 CreditSection
 │   │   │   ├── 📂 Donate
 │   │   │   └── 📂 DonateSection
+│   │   │       ├── 📂 carousel  # Carousel 디렉토리
+│   │   │       └── 📂 skeleton  # Skeleton UI 디렉토리
 │   │   ├── 📂 MyPage
 │   │   └── 📂 NotFoundPage
+│   ├── 📂 stores                # 상태 관리 디렉토리
+│   ├── 📂 util                  # 유틸리티 함수 디렉토리
 │   ├── ⚛️ App.jsx
 │   └── ⚛️ main.jsx
 ├── ⚙️ .env                 # 환경변수
@@ -91,6 +95,7 @@ npm run dev
 ├── 📝 .prettierrc.json     # Prettier 설정 파일
 ├── 🔷 favicon.svg          # favorite icon
 ├── 📄 index.html           # 진입 HTML
+├── 📦 jsconfig.json        # 프로젝트 경로 별칭 설정 파일
 ├── 📦 package-lock.json    # 의존성 고정 파일
 ├── 📦 package.json         # 프로젝트 메타 정보
 ├── ⬆️ vercel.json          # Vercel 배포 설정
