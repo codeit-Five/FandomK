@@ -3,12 +3,12 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Donate from '../Donate/Donate';
-import { apiCall } from '../../../apis/baseApi';
-import { getDonations } from '../../../apis/donationsApi';
-import useWindowSize from '../../../hooks/useWindowSize';
+import { apiCall } from '@/apis/baseApi';
+import { getDonations } from '@/apis/donationsApi';
+import useWindowSize from '@/hooks/useWindowSize';
 import './DonateSection.scss';
-import arrowLeft from '../../../assets/image/icons/ic_arrow_left.svg';
-import arrowRight from '../../../assets/image/icons/ic_arrow_right.svg';
+import arrowLeft from '@/assets/image/icons/ic_arrow_left.svg';
+import arrowRight from '@/assets/image/icons/ic_arrow_right.svg';
 
 // 데스크톱/모바일 환경에 따른 데이터 요청 개수 정의
 const DESKTOP_PAGE_SIZE = 4;

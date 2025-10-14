@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import btnClose from '../../assets/image/icons/ic_btn_close.svg';
-import btnPrev from '../../assets/image/icons/ic_btn_prev.svg';
-import useWindowSize from '../../hooks/useWindowSize';
-import useModalLock from '../../hooks/useModalLock';
+import btnClose from '@/assets/image/icons/ic_btn_close.svg';
+import btnPrev from '@/assets/image/icons/ic_btn_prev.svg';
+import useWindowSize from '@/hooks/useWindowSize';
+import useModalLock from '@/hooks/useModalLock';
 import './Modal.scss';
 import Button from '../Button/Button';
 

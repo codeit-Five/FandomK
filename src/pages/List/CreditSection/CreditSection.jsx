@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import useCredit from '../../../stores/creditIndex';
-import numberFormat from '../../../util/numberFormat';
-import useCountAnimation from '../../../hooks/useCountAnimation';
-import Modal from '../../../components/Modal/Modal';
-import OptionCard from '../../../components/OptionCard/OptionCard';
+import useCredit from '@/stores/creditIndex';
+import numberFormat from '@/util/numberFormat';
+import useCountAnimation from '@/hooks/useCountAnimation';
+import Modal from '@/components/Modal/Modal';
+import OptionCard from '@/components/OptionCard/OptionCard';
 import './CreditSection.scss';
-import creditIcon from '../../../assets/image/icons/ic_credit.svg';
+import creditIcon from '@/assets/image/icons/ic_credit.svg';
 
 const RECHARGE_CREDIT = [100, 500, 1000];
 

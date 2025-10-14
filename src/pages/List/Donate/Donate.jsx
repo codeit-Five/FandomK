@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import Button from '../../../components/Button/Button';
-import Modal from '../../../components/Modal/Modal';
-import useCredit from '../../../stores/creditIndex';
-import { apiCall } from '../../../apis/baseApi';
-import { putDonaCreadit } from '../../../apis/donationsApi';
+import Button from '@/components/Button/Button';
+import Modal from '@/components/Modal/Modal';
+import useCredit from '@/stores/creditIndex';
+import { apiCall } from '@/apis/baseApi';
+import { putDonaCreadit } from '@/apis/donationsApi';
 import './Donate.scss';
-import creditIcon from '../../../assets/image/icons/ic_credit.svg';
+import creditIcon from '@/assets/image/icons/ic_credit.svg';
 
 const Donate = ({ donation, onDonateSuccess }) => {
   if (!donation) return null;
