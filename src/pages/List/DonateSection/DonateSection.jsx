@@ -131,7 +131,8 @@ const DonateSection = () => {
 
     const groups = [];
     for (let i = 0; i < donateList.length; i += DESKTOP_PAGE_SIZE) {
-      groups.push(donateList.slice(i, i + DESKTOP_PAGE_SIZE));
+      const items = donateList.slice(i, i + DESKTOP_PAGE_SIZE);
+      groups.push({ items, groupKey: items.map(item => item.id).join('') });
     }
     return groups;
   }, [donateList, isMobile]);
@@ -167,24 +168,25 @@ const DonateSection = () => {
     setIsLoading(true);
 
     const result = await apiCall(getDonations, pageSize, cursor, null);
-    if (result) {
-      // 키 중복 해결 로직: 새로운 데이터를 추가하기 전에 중복 ID를 가진 항목을 제거
-      setDonateList(prev => {
-        // 기존 리스트 항목의 ID만 모은 Set 생성
-        const existingIds = new Set(prev.map(item => item.id));
 
-        // 새로운 리스트에서 기존 리스트에 없는 항목만 필터링
-        const uniqueNewItems = result.list.filter(
-          item => !existingIds.has(item.id),
-        );
+    if (!result) return;
 
-        // 중복이 제거된 새로운 항목을 기존 리스트 뒤에 추가
-        return [...prev, ...uniqueNewItems];
-      });
+    // 키 중복 해결 로직: 새로운 데이터를 추가하기 전에 중복 ID를 가진 항목을 제거
+    setDonateList(prev => {
+      // 기존 리스트 항목의 ID만 모은 Set 생성
+      const existingIds = new Set(prev.map(item => item.id));
 
-      setCursor(result.nextCursor);
-      setHasMore(result.nextCursor !== null);
-    }
+      // 새로운 리스트에서 기존 리스트에 없는 항목만 필터링
+      const uniqueNewItems = result.list.filter(
+        item => !existingIds.has(item.id),
+      );
+
+      // 중복이 제거된 새로운 항목을 기존 리스트 뒤에 추가
+      return [...prev, ...uniqueNewItems];
+    });
+
+    setCursor(result.nextCursor);
+    setHasMore(result.nextCursor !== null);
 
     isLoadingRef.current = false;
     setIsLoading(false);
@@ -249,7 +251,6 @@ const DonateSection = () => {
       return;
     }
 
-    // width가 0이 아닐 때
     if (width !== 0) {
       // 화면 크기 변경 시 데이터 리셋하고 다시 로드
       const resetAndLoad = async () => {
@@ -343,9 +344,9 @@ const DonateSection = () => {
 
     // 데스크톱: 4개씩 그룹으로
     const pageGroups = getPageGroups();
-    return pageGroups.map((group, groupIndex) => (
-      <div className="donateGroup" key={`group${groupIndex}`}>
-        {group.map(donation => (
+    return pageGroups.map(group => (
+      <div className="donateGroup" key={group.groupKey}>
+        {group.items.map(donation => (
           <div className="donateSilde" key={donation.id}>
             <Donate donation={donation} onDonateSuccess={refreshDonations} />
           </div>
