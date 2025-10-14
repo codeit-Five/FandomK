@@ -19,15 +19,15 @@
 
 ## 🛠 기술 스택
 
-| 구분                | 사용 기술                                                                                                                                                                                                                |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Frontend**        | ![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=flat-square&logo=react) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black)              |
-| **Styling**         | ![Styled Components](https://img.shields.io/badge/Styled--Components-5.3+-DB7093?style=flat-square&logo=styled-components) ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white) |
-| **상태 관리**       | ![Zustand](https://img.shields.io/badge/Zustand-4.4+-orange?style=flat-square)                                                                                                                                           |
-| **HTTP 클라이언트** | ![Fetch API](https://img.shields.io/badge/Fetch_API-4285F4?style=flat-square)                                                                                                                                            |
-| **Routing**         | ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white)                                                                                                    |
-| **배포**            | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel)                                                                                                                                      |
-| **협업**            | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion)                               |
+| 구분                | 사용 기술                                                                                                                                                                                                                                                                                                           |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend**        | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=white) |
+| **Styling**         | ![Styled Components](https://img.shields.io/badge/Styled_Components-DB7093?style=flat&logo=styled-components&logoColor=white) ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white)                                                                                         |
+| **상태 관리**       | ![Zustand](https://img.shields.io/badge/Zustand-443E38?style=flat&logo=react&logoColor=white) ![localStorage](https://img.shields.io/badge/localStorage-✓-green)                                                                                                                                                    |
+| **HTTP 클라이언트** | ![axios](https://img.shields.io/badge/axios-API-blue)                                                                                                                                                                                                                                                               |
+| **Routing**         | ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white)                                                                                                                                                                                               |
+| **배포**            | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel)                                                                                                                                                                                                                                 |
+| **협업**            | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion)                                                                                                                          |
 
 ## 🚀 시작하기
 
@@ -54,32 +54,52 @@ npm run dev
 
 ### 배포된 사이트
 
-- **프론트엔드**: [Vercel 배포 링크](#)
+- **프론트엔드**: [Fandom-K](https://fandom-k-19-5.vercel.app/)
 - **백엔드 API**: https://fandom-k-api.vercel.app/19-5/
 
 ## 📁 프로젝트 구조
 
 ```
-📦 src
-├── 📂 assets               # 정적 리소스
-│   ├── 📂 image
-│   ├── 📂 styles           # 전역 스타일
-│   └── 📂 fonts
-├── 📂 api                  # API 디렉토리
-├── 📂 components           # 공통 컴포넌트 디렉토리
-│   ├── 📂 Button           # 버튼 컴포넌트 디렉토리
-│   ├── 📂 Header
-│   ├── 📂 Loading
-│   ├── 📂 Error
-│   ├── 📂 Modal
-│   └── 📂 IdolCard
-├── 📂 pages                # 페이지 디렉토리
-│   ├── 📂 Landing
-│   ├── 📂 List
-│   └── 📂 MyPage
-├── 📂 hooks                # hook 디렉토리
-├── 📂 store                # Zustand 스토어 디렉토리
-└── 📂 utils                # 유틸리티 함수
+
+├── 📂 .github              # GitHub 설정 파일
+├── 📦 src
+│   ├── 📂 api                   # API 디렉토리
+│   ├── 📂 assets                # 정적 리소스
+│   │   ├── 📂 fonts             # 폰트 디렉토리
+│   │   ├── 📂 image             # 이미지 디렉토리
+│   │   └── 📂 styles            # 전역 스타일
+│   ├── 📂 components            # 공통 컴포넌트 디렉토리
+│   │   ├── 📂 Button            # 버튼 컴포넌트
+│   │   ├── 📂 Header            # 헤더 컴포넌트
+│   │   ├── 📂 IdolCard          # 아이돌 프로필 컴포넌트
+│   │   ├── 📂 Modal             # 모달 컴포넌트
+│   │   └── 📂 OptionCard        # 라디오 버튼 컴포넌트
+│   ├── 📂 hooks                 # Custom Hook 디렉토리
+│   ├── 📂 pages                 # 페이지 디렉토리
+│   │   ├── 📂 Landing
+│   │   ├── 📂 List              # 목록 페이지
+│   │   │   ├── 📂 ChartSection
+│   │   │   ├── 📂 CreditSection
+│   │   │   ├── 📂 Donate
+│   │   │   └── 📂 DonateSection
+│   │   │       ├── 📂 carousel  # Carousel 디렉토리
+│   │   │       └── 📂 skeleton  # Skeleton UI 디렉토리
+│   │   ├── 📂 MyPage
+│   │   └── 📂 NotFoundPage
+│   ├── 📂 stores                # 상태 관리 디렉토리
+│   ├── 📂 util                  # 유틸리티 함수 디렉토리
+│   ├── ⚛️ App.jsx
+│   └── ⚛️ main.jsx
+├── ⚙️ .env                 # 환경변수
+├── 📝 .eslintrc.json       # ESLint 설정 파일
+├── 📝 .prettierrc.json     # Prettier 설정 파일
+├── 🔷 favicon.svg          # favorite icon
+├── 📄 index.html           # 진입 HTML
+├── 📦 jsconfig.json        # 프로젝트 경로 별칭 설정 파일
+├── 📦 package-lock.json    # 의존성 고정 파일
+├── 📦 package.json         # 프로젝트 메타 정보
+├── ⬆️ vercel.json          # Vercel 배포 설정
+└── ⚡ vite.config.js       # Vite 설정
 ```
 
 ## 🔗 API 문서
@@ -115,29 +135,104 @@ POST /votes
 
 ## 🎯 주요 페이지
 
-### 1. 랜딩 페이지
+### 🏠랜딩 페이지
 
-- 이달의 아이돌 차트 (남성/여성 구분)
-- 인기 순위 실시간 업데이트
+- Fandom-K에 대한 전반적인 정보와 주요 기능을 소개
 
-### 2. 아이돌 리스트 페이지
+### 🎁후원을 기다리는 조공 / 🏆이달의 차트
 
-- 전체 아이돌 목록 조회
-- 관심 아이돌 추가/제거 기능
+- 크레딧 확인 : 사용자가 가지고 있는 크레딧을 확인
+- 후원을 기다리는 조공 : 아이돌 후원 내용 및 목표 달성률, 기간을 슬라이드를 통해 확인하고 참여
+- 이달의 차트 : 쿠표를 통해 아이돌 순위를 반영하고, 실시간 차트 변동을 확인
 
-### 3. 마이페이지
+### 🪙충전하기 모달
 
-- 관심 아이돌 관리
-- 크레딧 충전 및 내역 확인
-- 후원 및 투표 히스토리
+- 사용자가 충전을 원하는 크레딧 금액을 선택하고 충전을 진행
+
+### 💸후원하기 모달
+
+- 후원할 조공을 확인하고 사용자가 입력한 크레딧을 후원
+
+### 🗳️투표하기 모달
+
+- 크레딧을 이용해 선택한 아이돌에게 투표하고, 결과를 반영
+
+### ⚙️마이 페이지
+
+- 관심이 있는 아이돌을 리스트로 관리하고 확인
+
+### 🚫NotFound 페이지
+
+- 잘못된 경로로 접근했을 때, 에러를 안내하고 이전 또는 메인 페이지로 이동
 
 ## 👥 팀원
 
-| 이름       | GitHub                                                                                                                          | 역할                                   |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| **김재승** | [![GitHub](https://img.shields.io/badge/GitHub-Sseung22-181717?style=flat-square&logo=github)](https://github.com/Sseung22)     | 공통 컴포넌트 & 랜딩/마이페이지        |
-| **강지현** | [![GitHub](https://img.shields.io/badge/GitHub-Jihyun0522-181717?style=flat-square&logo=github)](https://github.com/Jihyun0522) | 공통 컴포넌트 & 리스트 페이지          |
-| **이선영** | [![GitHub](https://img.shields.io/badge/GitHub-sylee86-181717?style=flat-square&logo=github)](https://github.com/sylee86)       | 공통 스타일 & API 통신 & 리스트 페이지 |
+| <img src="https://github.com/Sseung22.png" alt="Sseung22" width="100"> | <img src="https://github.com/Jihyun0522.png" alt="Jihyun0522" width="100"> | <img src="https://github.com/sylee86.png" alt="sylee86" width="100"> |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [김재승](https://github.com/Sseung22)                                  | [강지현](https://github.com/Jihyun0522)                                    | [이선영](https://github.com/sylee86)                                 |
+
+## 🏷️역할
+
+🖥️ **김재승**
+
+- **초기 세팅**
+  - GitHub Issue, PR 템플릿 세팅
+  - 라우팅 설정
+
+- **공통 컴포넌트**
+  - 공통 Header 컴포넌트 구현
+
+- **랜딩 페이지**
+  - 랜딩 페이지 구현
+
+- **마이 페이지**
+  - localStorage 기반 관심 아이돌 관리 기능
+  - 리스트로 관심 아이돌 확인
+
+- **배포**
+
+- **발표 및 발표 자료 제작**
+
+🖥️ **강지현**
+
+- **초기 세팅**
+  - 프로젝트 워크플로우 및 개발 컨벤션 정리
+  - 디렉토리 초기 세팅
+
+- **공통 컴포넌트**
+  - 버튼 공통 컴포넌트 구현
+  - 아이돌 프로필 공통 컴포넌트 구현
+  - 모달 공통 컴포넌트 구현
+  - 라디오 버튼 공통 컴포넌트 구현
+
+- **목록 페이지 크레딧 표시/후원을 기다리는 조공**
+  - 스켈레톤 로딩 UI 구현 (`react-loading-skeleton` 활용)
+  - 캐러셀 기능 구현 (`embla-carousel-react` 활용)
+
+- **NotFound 페이지**
+  - NotFound 페이지 UI 구현
+
+- **문서화**
+  - README.md 정리
+
+🖥️ **이선영**
+
+- **초기 세팅**
+  - 디렉토리 초기 세팅
+  - 공통 style 정의
+
+- **API 통신**
+  - AXIOS를 활용한 API 통신 구현
+  - 응답 인터셉터를 통한 에러 처리 통일화
+  - toast 알림 구현
+
+- **크레딧 상태 관리**
+  - `Zustand`를 활용하여 크레딧 전역 상태 관리 구현
+
+- **목록 페이지 이달의 차트**
+  - 여자/남자 아이돌 차트 탭 구현
+  - 총 투표수 기준 순위 정렬 기능
+  - 투표하기 모달 구현
 
 ## 🎓 학습 포인트
 
