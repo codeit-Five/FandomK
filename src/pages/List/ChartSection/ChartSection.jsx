@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { apiCall } from '@/apis/baseApi';
 import getCharts from '@/apis/chartsApi';

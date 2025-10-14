@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import LandingPage from '@/pages/Landing/LandingPage';
 import ListPage from '@/pages/List/ListPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
@@ -17,6 +18,8 @@ function App() {
         </Routes>
       </BrowserRouter>
       <div id="modalRoot" />
+
+      <ToastContainer autoClose={2000} theme="dark" />
     </>
   );
 }
