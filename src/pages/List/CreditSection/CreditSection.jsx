@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useCredit from '../../../stores/creditIndex';
-import useNumberFormat from '../../../hooks/useNumberFormat';
+import numberFormat from '../../../util/numberFormat';
 import useCountAnimation from '../../../hooks/useCountAnimation';
 import Modal from '../../../components/Modal/Modal';
 import OptionCard from '../../../components/OptionCard/OptionCard';
@@ -15,7 +15,7 @@ const CreditSection = () => {
   const [selectedCredit, setSelectedCredit] = useState(0);
 
   const animatedCredit = useCountAnimation(credit);
-  const formattedCredit = useNumberFormat(animatedCredit);
+  const formattedCredit = numberFormat(animatedCredit);
 
   // 크레딧 충전하기 Modal Open
   const handleOpenModal = () => {
