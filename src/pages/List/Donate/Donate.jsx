@@ -10,11 +10,6 @@ import creditIcon from '../../../assets/image/icons/ic_credit.svg';
 const Donate = ({ donation, onDonateSuccess }) => {
   if (!donation) return null;
 
-  const [isDonateOpen, setIsDonateOpen] = useState(false);
-  const [inputCredit, setInputCredit] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { credit, decreaseCredit } = useCredit(state => state);
-
   const {
     id,
     idol,
@@ -25,8 +20,16 @@ const Donate = ({ donation, onDonateSuccess }) => {
     deadline,
   } = donation;
 
+  const [isDonateOpen, setIsDonateOpen] = useState(false);
+  const [inputCredit, setInputCredit] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { credit, decreaseCredit } = useCredit(state => state);
+
   // 입력된 크레딧이 보유 크레딧을 초과하는지 확인
-  const isOverCredit = inputCredit && Number(inputCredit) > credit;
+  const isOverHasCredit = inputCredit && Number(inputCredit) > credit;
+  // 입력한 크레딧과 후원된 크레딧의 합이 타겟 크레딧을 초과하는지 확인
+  const isOverTargetCredit =
+    inputCredit && Number(inputCredit) + receivedDonations > targetDonation;
 
   // 남은 날짜 계산
   const calculateRemainingDays = deadline => {
@@ -45,17 +48,10 @@ const Donate = ({ donation, onDonateSuccess }) => {
   const remainingDays = calculateRemainingDays(deadline);
   const progressPercent = calculateProgress(receivedDonations, targetDonation);
 
-  // 후원하기 Modal Open
-  const handleOpenModal = () => {
-    setIsDonateOpen(true);
-    // 모달 열 때 입력값 초기화
-    setInputCredit('');
-  };
-
-  // 후원하기 Modal close
-  const handleCloseModal = () => {
-    setIsDonateOpen(false);
-    // 모달 닫을 때 입력값 초기화
+  // 후원하기 Modal Open & Close
+  const handleDonateModal = () => {
+    // 익명 인자로 이전의 값을 반대로 사용
+    setIsDonateOpen(prev => !prev);
     setInputCredit('');
   };
 
@@ -75,25 +71,24 @@ const Donate = ({ donation, onDonateSuccess }) => {
     const creditAmount = Number(inputCredit);
 
     // 유효성 검사
-    if (!inputCredit || creditAmount <= 0) {
-      // alert('후원할 크레딧을 입력해주세요.');
-      return;
-    }
+    if (!inputCredit || creditAmount <= 0) return;
 
-    if (creditAmount > credit) {
-      return; // 크레딧 초과 시 실행하지 않음
-    }
+    // 크레딧 초과 시 실행하지 않음
+    if (creditAmount > credit) return;
 
     setIsSubmitting(true); // 처리 시작
 
     try {
       const result = await apiCall(putDonaCreadit, id, creditAmount);
+
+      if (!result) return;
+
       // API 호출 성공 시
-      if (result) {
-        decreaseCredit(creditAmount); // 크레딧 차감
-        handleCloseModal();
-        onDonateSuccess();
-      }
+      decreaseCredit(creditAmount); // 크레딧 차감
+      handleDonateModal();
+      onDonateSuccess();
+    } catch (err) {
+      console.error(err);
     } finally {
       setIsSubmitting(false); // 처리 완료
     }
@@ -105,7 +100,13 @@ const Donate = ({ donation, onDonateSuccess }) => {
         <div className="donateHeader">
           <div className="donateImgBox">
             <img src={idol.profilePicture} alt={`${idol.name} profile`} />
-            <Button variant="donate" onClick={handleOpenModal} />
+            <Button
+              variant="donate"
+              onClick={handleDonateModal}
+              isDisabled={
+                !remainingDays > 0 || receivedDonations === targetDonation
+              }
+            />
           </div>
         </div>
         <div className="donateInfo">
@@ -115,9 +116,15 @@ const Donate = ({ donation, onDonateSuccess }) => {
         <div className="donateFooter">
           <div className="donateCredit">
             <img src={creditIcon} alt="credit icon" />
-            <span>{receivedDonations.toLocaleString()}</span>
+            <div className="donateCreditBox">
+              <span>{receivedDonations.toLocaleString()}</span>
+              <span>/</span>
+              <span>{targetDonation.toLocaleString()}</span>
+            </div>
           </div>
-          <span className="donateRemainingDays">{remainingDays}일 남음</span>
+          <span className="donateRemainingDays">
+            {remainingDays > 0 ? `${remainingDays}일 남음` : '기한 만료'}
+          </span>
         </div>
         <div
           className="donateProgress"
@@ -130,7 +137,7 @@ const Donate = ({ donation, onDonateSuccess }) => {
         variant="donate"
         title="후원하기"
         isOpen={isDonateOpen}
-        onClose={handleCloseModal}
+        onClose={handleDonateModal}
         onClick={handleDonate}
         disabled={isSubmitting}
       >
@@ -143,7 +150,7 @@ const Donate = ({ donation, onDonateSuccess }) => {
         </div>
         <div className="donateModalCreditBox">
           <div
-            className={`donateModalCreditInput ${isOverCredit ? 'overCredit' : ''}`}
+            className={`donateModalCreditInput ${isOverHasCredit || isOverTargetCredit ? 'overCredit' : ''}`}
           >
             <input
               type="text"
@@ -153,8 +160,11 @@ const Donate = ({ donation, onDonateSuccess }) => {
             />
             <img src={creditIcon} alt="credit icon" />
           </div>
-          {isOverCredit && (
+          {isOverHasCredit && (
             <span>갖고 있는 크레딧보다 더 많이 후원할 수 없어요</span>
+          )}
+          {isOverTargetCredit && (
+            <span>목표 크레딧보다 더 많이 후원할 수 없어요</span>
           )}
         </div>
       </Modal>
