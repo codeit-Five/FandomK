@@ -1,9 +1,10 @@
-import './assets/styles/App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/Landing/LandingPage';
-import ListPage from './pages/List/ListPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import MyPage from './pages/MyPage/MyPage';
+import { ToastContainer } from 'react-toastify';
+import LandingPage from '@/pages/Landing/LandingPage';
+import ListPage from '@/pages/List/ListPage';
+import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import MyPage from '@/pages/MyPage/MyPage';
+import './assets/styles/App.scss';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         </Routes>
       </BrowserRouter>
       <div id="modalRoot" />
+
+      <ToastContainer autoClose={2000} theme="dark" />
     </>
   );
 }

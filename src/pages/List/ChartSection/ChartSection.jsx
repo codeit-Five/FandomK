@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { apiCall } from '../../../apis/baseApi';
-import getCharts from '../../../apis/chartsApi';
-import postVotes from '../../../apis/votesApi';
-import useWindowSize from '../../../hooks/useWindowSize';
-import useCredit from '../../../stores/creditIndex';
-import Button from '../../../components/Button/Button';
-import Modal from '../../../components/Modal/Modal';
-import IdolCard from '../../../components/IdolCard/IdolCard';
-import OptionCard from '../../../components/OptionCard/OptionCard';
+import { apiCall } from '@/apis/baseApi';
+import getCharts from '@/apis/chartsApi';
+import postVotes from '@/apis/votesApi';
+import useWindowSize from '@/hooks/useWindowSize';
+import useCredit from '@/stores/creditIndex';
+import Button from '@/components/Button/Button';
+import Modal from '@/components/Modal/Modal';
+import IdolCard from '@/components/IdolCard/IdolCard';
+import OptionCard from '@/components/OptionCard/OptionCard';
 import '../../../components/IdolCard/IdolCard.scss';
 import './ChartSection.scss';
 
@@ -101,7 +101,6 @@ const ChartSection = () => {
     if (credit >= 1000) {
       if (!selectedIdol) {
         toast.error('선택된 아이돌이 없습니다.');
-        alert('선택된 아이돌이 없습니다.');
         return;
       }
       decreaseCredit(VOTE_CREDIT);
