@@ -1,9 +1,9 @@
-import './assets/styles/App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/Landing/LandingPage';
-import ListPage from './pages/List/ListPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import MyPage from './pages/MyPage/MyPage';
+import LandingPage from '@/pages/Landing/LandingPage';
+import ListPage from '@/pages/List/ListPage';
+import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import MyPage from '@/pages/MyPage/MyPage';
+import './assets/styles/App.scss';
 
 function App() {
   return (
