@@ -2,7 +2,7 @@
 
 .myPageContainer {
   width: 100%;
-  max-width: 1200px; 
+  max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
 
@@ -98,6 +98,62 @@
       display: flex;
       justify-content: center;
       margin-top: 40px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .myPageContainer {
+    padding: 40px 16px;
+
+    .sectionTitle {
+      @include txt_style(1.25rem, SB);
+      margin-bottom: 20px;
+    }
+
+    .idolList {
+      gap: 24px 12px;
+    }
+
+    .navButton {
+      width: 32px;
+      height: 32px;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .myIdolsSection {
+      margin-bottom: 40px;
+
+      .interestIdolsContainer {
+        gap: 12px;
+      }
+
+      .interestList {
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        min-height: 183px;
+        gap: 24px 12px;
+      }
+    }
+
+    .recommendIdolsSection {
+      .recommendIdolsContainer {
+        gap: 12px;
+      }
+
+      .recommendList {
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        min-height: auto;
+      }
+
+      .addButtonContainer {
+        margin-top: 32px;
+      }
     }
   }
 }
