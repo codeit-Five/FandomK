@@ -1,10 +1,10 @@
 /**
- * 숫자를 받아 천 단위 콤마가 포함된 문자열로 포맷팅하는 훅
+ * 숫자를 받아 천 단위 콤마가 포함된 문자열로 포맷팅하는 함수
  *
  * @param {number} number - 포맷팅할 숫자
  * @returns {string} 포맷팅된 문자열
  */
-const useNumberFormat = number => {
+const numberFormat = number => {
   if (typeof number !== 'number') {
     return String(number); // 숫자가 아니면 그대로 반환
   }
@@ -13,4 +13,4 @@ const useNumberFormat = number => {
   return number.toLocaleString('ko-KR');
 };
 
-export default useNumberFormat;
+export default numberFormat;

@@ -96,7 +96,6 @@
 
     .donateCredit {
       display: flex;
-      color: $coral;
       align-Items: center;
 
       & img {
@@ -104,6 +103,16 @@
         width: 18px;
         align-items: center;
         justify-content: center;
+      }
+
+      &Box {
+        display: flex;
+        gap: 4px;
+        color: $coral;
+
+        span {
+          display: inline-block;
+        }
       }
     }
 
@@ -243,6 +252,13 @@
 
       &Title {
         @include txt_style(14px, M);
+      }
+    }
+    &Footer {
+      @include txt_style(10px, R);
+
+      .donateCreditBox {
+        gap: 1px;
       }
     }
   }
