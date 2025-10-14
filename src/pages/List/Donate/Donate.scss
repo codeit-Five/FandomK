@@ -254,5 +254,12 @@
         @include txt_style(14px, M);
       }
     }
+    &Footer {
+      @include txt_style(10px, R);
+
+      .donateCreditBox {
+        gap: 1px;
+      }
+    }
   }
 }
