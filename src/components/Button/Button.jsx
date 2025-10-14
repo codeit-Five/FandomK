@@ -1,7 +1,7 @@
 import './Button.scss';
-import btnCredit from '../../assets/image/icons/ic_btn_credit.svg';
-import btnChart from '../../assets/image/icons/ic_btn_chart.svg';
-import btnPlus from '../../assets/image/icons/ic_btn_plus.svg';
+import btnCredit from '@/assets/image/icons/ic_btn_credit.svg';
+import btnChart from '@/assets/image/icons/ic_btn_chart.svg';
+import btnPlus from '@/assets/image/icons/ic_btn_plus.svg';
 
 const BUTTON_CONTENT = {
   start: '지금 시작하기',

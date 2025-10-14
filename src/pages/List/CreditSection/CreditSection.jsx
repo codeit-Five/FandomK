@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useCredit from '../../../hooks/useCredit';
+import useCredit from '../../../stores/creditIndex';
 import useNumberFormat from '../../../hooks/useNumberFormat';
 import useCountAnimation from '../../../hooks/useCountAnimation';
 import Modal from '../../../components/Modal/Modal';

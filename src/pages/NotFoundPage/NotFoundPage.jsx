@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '@/assets/image/logo/fandom-klogo.svg';
 import './NotFoundPage.scss';
-import logo from '../../assets/image/logo/fandom-klogo.svg';
 
 function NotFoundPage() {
   const navigate = useNavigate();
