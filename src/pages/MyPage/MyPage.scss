@@ -2,7 +2,7 @@
 
 .myPageContainer {
   width: 100%;
-  max-width: 1200px; 
+  max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
 
@@ -17,12 +17,76 @@
     gap: 40px 20px;
   }
 
+  .navButton {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.nextButton img {
+      transform: rotate(180deg);
+    }
+  }
+
   .myIdolsSection {
-    margin-bottom: 60px;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba($color: #fff, $alpha: 0.1);
+
+    .interestIdolsContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 8px;
+        background-color: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+    }
 
     .interestList {
-      grid-template-columns: repeat(auto-fill, 128px); // 카드 너비 수정
-      gap: 40px 20px; 
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 40px 18px;
+      align-items: center;
+
+      .emptyListMessage {
+        width: 100%;
+        height: 183px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
     }
   }
 
@@ -32,43 +96,18 @@
       align-items: center;
       justify-content: center;
       gap: 24px;
-
-      .navButton {
-        flex-shrink: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        img {
-          width: 24px;
-          height: 24px;
-        }
-
-        &.nextButton img {
-          transform: rotate(180deg);
-        }
-      }
     }
-
     .recommendList {
       width: 1164px;
       grid-template-columns: repeat(8, 128px);
       grid-template-rows: repeat(2, auto);
+      min-height: 406px;
+      align-content: start;
     }
-
     .message {
       text-align: center;
       font-size: 1.2rem;
       padding: 40px;
-
       &.error {
         color: $coral;
       }
@@ -78,6 +117,141 @@
       display: flex;
       justify-content: center;
       margin-top: 40px;
+    }
+  }
+}
+
+/* Tablet (1199px 이하) */
+@media (max-width: 1199px) {
+  .myPageContainer {
+    padding: 16px 24px 40px;
+    .sectionTitle {
+      font-size: 20px;
+    }
+    .myIdolsSection {
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+      .interestIdolsContainer {
+        width: calc(100% + 24px);
+        margin-right: -24px;
+        .interestList {
+          gap: 0;
+          .idolCardInterest {
+            padding-right: 24px;
+            box-sizing: content-box;
+          }
+        }
+      }
+    }
+    .recommendIdolsSection {
+      .recommendIdolsContainer {
+        position: relative;
+        gap: 0;
+        .navButton {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-30px);
+          &.prevButton {
+            left: 0;
+          }
+          &.nextButton {
+            right: 0;
+          }
+        }
+        .recommendList {
+          width: 100%;
+          justify-content: center;
+          grid-template-columns: repeat(4, auto);
+          gap: 24px;
+        }
+      }
+    }
+  }
+}
+/* mobile (640px 이하) */
+@media (max-width: 640px) {
+  .myPageContainer {
+    .sectionTitle {
+      font-size: 16px;
+    }
+    .myIdolsSection {
+      .interestIdolsContainer {
+        .interestList {
+          .emptyListMessage {
+            height: 153px;
+            font-size: 14px;
+          }
+          .idolCardInterest {
+            width: 98px;
+            height: auto;
+          }
+          .idolCardImgContainer {
+            width: 98px;
+            height: 98px;
+            padding: 5px;
+            .idolCardImgBox {
+              width: 100%;
+              height: 100%;
+            }
+            button {
+              width: 22px;
+              height: 22px;
+              border-radius: 50%;
+              border-width: 2px;
+              img {
+                width: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .recommendIdolsSection {
+      .mobile-scroll {
+        overflow-x: scroll;
+        margin: 0 -24px;
+        padding: 0 24px;
+
+        &::-webkit-scrollbar {
+          height: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+        }
+        .recommendList {
+          width: 100%;
+          max-width: initial;
+          min-height: initial;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+          padding-bottom: 90px;
+        }
+        .idolCardRecommend {
+          width: calc((100% - 32px) / 3);
+          height: auto;
+          gap: 0;
+          .idolCardImgContainer {
+            width: 98px;
+            height: 98px;
+            padding: 5px;
+            .idolCardImgBox {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+      .addButtonContainer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-top: 0;
+        padding: 24px 0 34px;
+        background-color: rgba(2, 0, 14, 0.8);
+      }
     }
   }
 }

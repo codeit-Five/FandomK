@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import useCredit from '../../../hooks/useCredit';
-import useNumberFormat from '../../../hooks/useNumberFormat';
-import useCountAnimation from '../../../hooks/useCountAnimation';
-import Modal from '../../../components/Modal/Modal';
-import OptionCard from '../../../components/OptionCard/OptionCard';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useCredit from '@/stores/creditIndex';
+import numberFormat from '@/util/numberFormat';
+import useCountAnimation from '@/hooks/useCountAnimation';
+import Modal from '@/components/Modal/Modal';
+import OptionCard from '@/components/OptionCard/OptionCard';
 import './CreditSection.scss';
-import creditIcon from '../../../assets/image/icons/ic_credit.svg';
+import creditIcon from '@/assets/image/icons/ic_credit.svg';
 
 const RECHARGE_CREDIT = [100, 500, 1000];
 
@@ -15,7 +17,7 @@ const CreditSection = () => {
   const [selectedCredit, setSelectedCredit] = useState(0);
 
   const animatedCredit = useCountAnimation(credit);
-  const formattedCredit = useNumberFormat(animatedCredit);
+  const formattedCredit = numberFormat(animatedCredit);
 
   // 크레딧 충전하기 Modal Open
   const handleOpenModal = () => {
@@ -30,6 +32,11 @@ const CreditSection = () => {
 
   // 크레딧 충전하기
   const handleRechargeCredit = () => {
+    if (selectedCredit <= 0) {
+      toast.error('충전할 크레딧이 선택되지 않았습니다.');
+      return;
+    }
+
     increaseCredit(selectedCredit);
     handleCloseModal();
   };

@@ -1,6 +1,6 @@
 import './IdolCard.scss';
-import btnPlus from '../../assets/image/icons/ic_btn_remove.svg';
-import checkmark from '../../assets/image/icons/ic_checkmark.svg';
+import btnPlus from '@/assets/image/icons/ic_btn_remove.svg';
+import checkmark from '@/assets/image/icons/ic_checkmark.svg';
 
 export default function IdolCard({
   variant,
@@ -12,10 +12,13 @@ export default function IdolCard({
   isShowBtn,
   onClick,
   onRemove,
+  isAdded,
 }) {
   const { rank, voteCount } = rankInfo || {};
   const { groupName, idolName } = profileInfo || {};
   const variantClass = `idolCard${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
+  const cardClassName =
+    `${variantClass} ${isModal ? 'modal' : ''} ${isAdded ? 'added' : ''}`.trim();
 
   const profileContent = (
     <>
@@ -58,12 +61,10 @@ export default function IdolCard({
   );
 
   return onClick ? (
-    <button className={variantClass} onClick={onClick}>
+    <button className={cardClassName} onClick={onClick}>
       {profileContent}
     </button>
   ) : (
-    <div className={`${variantClass} ${isModal ? 'modal' : ''}`.trim()}>
-      {profileContent}
-    </div>
+    <div className={cardClassName}>{profileContent}</div>
   );
 }

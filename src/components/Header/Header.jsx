@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import logo from '../../assets/image/logo/fandom-klogo.svg';
-import profile from '../../assets/image/common/img_profile.svg';
+import logo from '@/assets/image/logo/fandom-klogo.svg';
+import profile from '@/assets/image/common/img_profile.svg';
 import favicon from '../../../favicon.svg';
 import './Header.scss';
 
