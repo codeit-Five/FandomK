@@ -10,12 +10,20 @@
 
 2025/09/24 (수) ~ 2025/10/16 (목)
 
-### ✨ 주요 기능
+## ✨ 주요 기능
 
 - 💰 **후원 시스템**: 크레딧을 충전하여 아이돌 후원
 - 🗳️ **투표 시스템**: 이달의 아이돌 인기 투표 참여
 - 📊 **실시간 차트**: 투표 순위별 아이돌 차트 확인
 - 👤 **마이페이지**: 관심 아이돌 관리 및 개인화
+
+## 🌐 배포 주소
+
+➡️ [Fandom-K](https://fandom-k-19-5.vercel.app/)
+
+## 📹 시연 영상
+
+➡️ [Fandom-K 시연 영상](https://www.youtube.com/watch?v=sniLeiDDV4Q)
 
 ## 🛠 기술 스택
 
@@ -52,10 +60,9 @@ npm install
 npm run dev
 ```
 
-### 배포된 사이트
+### 백엔드 API
 
-- **프론트엔드**: [Fandom-K](https://fandom-k-19-5.vercel.app/)
-- **백엔드 API**: https://fandom-k-api.vercel.app/19-5/
+➡️ https://fandom-k-api.vercel.app/19-5/
 
 ## 📁 프로젝트 구조
 
