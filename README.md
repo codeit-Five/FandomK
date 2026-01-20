@@ -60,10 +60,6 @@ npm install
 npm run dev
 ```
 
-### 백엔드 API
-
-➡️ https://fandom-k-api.vercel.app/19-5/
-
 ## 📁 프로젝트 구조
 
 ```
@@ -110,9 +106,6 @@ npm run dev
 ```
 
 ## 🔗 API 문서
-
-- **Swagger UI**: https://fandom-k-api.vercel.app/docs/
-- **Base URL**: https://fandom-k-api.vercel.app/19-5/
 
 ### 주요 API 엔드포인트
 
